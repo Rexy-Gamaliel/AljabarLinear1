@@ -4,13 +4,6 @@ import java.text.DecimalFormat;
 
 public class SPL {
 
-    static double[][] a = { {3, -2, 5, 0, 2},
-                            {4, 5, 8, 1, 4},
-                            {1, 1, 2, 1, 5},
-                            {2, 7, 6, 5, 7}};
-
-    static double[] b = new double[a.length];
-
     public static void printMatrix2d(double[][] matrix) {
         int len1D = matrix.length;
         int len2D = matrix[0].length;
