@@ -1,9 +1,8 @@
 package com.company;
-import java.util.Arrays;
+
 import java.text.DecimalFormat;
 
 public class SPL {
-
     public static void printMatrix2d(double[][] matrix) {
         int len1D = matrix.length;
         int len2D = matrix[0].length;
@@ -23,7 +22,7 @@ public class SPL {
         System.out.println();
     }
 
-    public static void elminasiGauss(double[][] a) {
+    public static void elminasiGauss(double[][] a, double[] b) {
         int len1D = a.length;
         int len2D = a[0].length;
 
