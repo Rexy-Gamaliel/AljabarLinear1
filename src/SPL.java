@@ -3,6 +3,37 @@ package com.company;
 import java.text.DecimalFormat;
 
 public class SPL {
+
+    public static double[] eliminasiGauss(double[][] matrix) {
+        int len1D = matrix.length;
+        int len2D = matrix[0].length;
+        double[]  coefficient = new double[matrix.length];
+
+        for (int i=0; i<len1D; i++) {
+
+            tukarZeroPivot(matrix, i);
+            double pivot = matrix[i][i];
+
+            for (int k=i+1; k<len1D; k++) {
+                double N2 = matrix[k][i]/pivot;
+
+                if (matrix[k][i] != 0) {
+                    for (int j=0; j<len2D; j++) {
+                            String hasilStr = new DecimalFormat("##.##").format(matrix[k][j] - matrix[i][j]*N2);
+                            matrix[k][j] = Double.parseDouble(hasilStr);
+                    }
+                    System.out.print(N2);
+                    System.out.print(", ");
+                    System.out.println();
+                }
+                printMatrix2d(matrix);
+            }
+            coefficient[i] = matrix[i][len2D-1];
+        }
+
+        return subtitusiMundur(matrix, coefficient);
+    }
+    
     public static void printMatrix2d(double[][] matrix) {
         int len1D = matrix.length;
         int len2D = matrix[0].length;
@@ -37,36 +68,6 @@ public class SPL {
         if (pivot == 0) {
             tukarBaris(matrix, idx, foundIdxPivot);
         }
-    }
-
-    public static double[] eliminasiGauss(double[][] matrix) {
-        int len1D = matrix.length;
-        int len2D = matrix[0].length;
-        double[]  coefficient = new double[matrix.length];
-
-        for (int i=0; i<len1D; i++) {
-
-            tukarZeroPivot(matrix, i);
-            double pivot = matrix[i][i];
-
-            for (int k=i+1; k<len1D; k++) {
-                double N2 = matrix[k][i]/pivot;
-
-                if (matrix[k][i] != 0) {
-                    for (int j=0; j<len2D; j++) {
-                            String hasilStr = new DecimalFormat("##.##").format(matrix[k][j] - matrix[i][j]*N2);
-                            matrix[k][j] = Double.parseDouble(hasilStr);
-                    }
-                    System.out.print(N2);
-                    System.out.print(", ");
-                    System.out.println();
-                }
-                printMatrix2d(matrix);
-            }
-            coefficient[i] = matrix[i][len2D-1];
-        }
-
-        return subtitusiMundur(matrix, coefficient);
     }
 
     public static double[] subtitusiMundur(double[][] matrix, double[] b) {
