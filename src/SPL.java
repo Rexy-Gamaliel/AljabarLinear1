@@ -22,28 +22,51 @@ public class SPL {
         System.out.println();
     }
 
-    public static void elminasiGauss(double[][] a, double[] b) {
-        int len1D = a.length;
-        int len2D = a[0].length;
+    public static void tukarZeroPivot(double[][] matrix, int idx) {
+        int len1D = matrix.length;
+        double pivot = matrix[idx][idx];
+        int foundIdxPivot = 0;
+
+        for (int i=idx+1; i<len1D; i++) {
+            if (matrix[i][idx] != 0) {
+                foundIdxPivot = i;
+                break;
+            }
+        }
+
+        if (pivot == 0) {
+            tukarBaris(matrix, idx, foundIdxPivot);
+        }
+    }
+
+    public static double[] eliminasiGauss(double[][] matrix) {
+        int len1D = matrix.length;
+        int len2D = matrix[0].length;
+        double[]  coefficient = new double[matrix.length];
 
         for (int i=0; i<len1D; i++) {
-            double pivot = a[i][i];
 
-            if (pivot == 0) {
-                tukarBaris(a, i, i+1);
-                pivot = a[i][i];
-            }
+            tukarZeroPivot(matrix, i);
+            double pivot = matrix[i][i];
 
             for (int k=i+1; k<len1D; k++) {
-                double N = (pivot/a[k][i]);
+                double N2 = matrix[k][i]/pivot;
 
-                for (int j=0; j<len2D; j++) {
-                    String hasilStr = new DecimalFormat("##.##").format(a[i][j] - a[k][j]*N);
-                    a[k][j] = Double.parseDouble(hasilStr);
+                if (matrix[k][i] != 0) {
+                    for (int j=0; j<len2D; j++) {
+                            String hasilStr = new DecimalFormat("##.##").format(matrix[k][j] - matrix[i][j]*N2);
+                            matrix[k][j] = Double.parseDouble(hasilStr);
+                    }
+                    System.out.print(N2);
+                    System.out.print(", ");
+                    System.out.println();
                 }
+                printMatrix2d(matrix);
             }
-            b[i] = a[i][4];
+            coefficient[i] = matrix[i][len2D-1];
         }
+
+        return subtitusiMundur(matrix, coefficient);
     }
 
     public static double[] subtitusiMundur(double[][] matrix, double[] b) {
@@ -64,13 +87,16 @@ public class SPL {
         return hasil;
     }
 
-    public static void tukarBaris(double[][] mat, int a, int b) {
-        int len_row = mat.length;
+    public static void tukarBaris(double[][] matrix, int rowX, int rowY) {
+        int len1D = matrix.length;
+        int len2D = matrix[0].length;
 
-        for (int k=0; k<=len_row; k++) {
-            double temp = mat[a][k];
-            mat[a][k] = mat[b][k];
-            mat[b][k] = temp;
+        if (rowX != len1D-1) {
+            for (int k=0; k<len2D; k++) {
+                double temp = matrix[rowX][k];
+                matrix[rowX][k] = matrix[rowY][k];
+                matrix[rowY][k] = temp;
+            }
         }
     }
 }
