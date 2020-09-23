@@ -110,16 +110,12 @@ public class Main {
             {3, 4, 1, -2, 1, 4}};
 
     static double[] c = {0, 5, -12};
-
     static double[][] d = {{0, 7, -1, 3, 1, 5}, {0, 3, 4, 1, 7, 7}, {6, 2, 0, 2, -1, 2}, {2, 1, 2, 0, 2, 3}, {3, 4, 1, -2, 1, 4}};
-
     static double[][] e = {{1, 1, -1, -1, 1}, {2, 5, -7, -5, -2}, {2, -1, 1, 3, 4}, {5, 2, -4, 2, 6}};
-
     static double[][] f = {{2, 3, 4}, {6, 8, 5}, {3, 7, 1}};
     static double[][] g = {{2, 1, 4}, {6, 5, 0}, {1, 2, 0}};
     static double[][] h = {{1, 4, 5, 6}, {2, 0, 6, 3}, {4, 2, 1, 4}};
     static double[][] i = {{1, -1, 2, 5}, {2, -2, 4, 10}, {3, -1, 6, 5}};
-
     /* TEST ARRAY BUAT MENGHITUNG SPL lewat GAUSS dan DETERMINAN */
 
     public static void main(String[] args) {

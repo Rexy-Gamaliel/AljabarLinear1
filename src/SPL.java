@@ -43,7 +43,7 @@ public class SPL {
         }
     }
 
-    /* Buat menghitung matriks ukuran apapun dengan menggunakan reduksi baris elementer */
+    /* Buat menghitung matriks ukuran N x N dengan menggunakan reduksi baris elementer */
     public static double Determinan(double[][] matrix) {
         int lenBaris = matrix.length;
         int lenKolom = matrix[0].length;
