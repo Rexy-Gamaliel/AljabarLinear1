@@ -117,6 +117,9 @@ public class Main {
 
     static double[][] f = {{2, 3, 4}, {6, 8, 5}, {3, 7, 1}};
     static double[][] g = {{2, 1, 4}, {6, 5, 0}, {1, 2, 0}};
+    static double[][] h = {{1, 4, 5, 6}, {2, 0, 6, 3}, {4, 2, 1, 4}};
+    static double[][] i = {{1, -1, 2, 5}, {2, -2, 4, 10}, {3, -1, 6, 5}};
+
     /* TEST ARRAY BUAT MENGHITUNG SPL lewat GAUSS dan DETERMINAN */
 
     public static void main(String[] args) {

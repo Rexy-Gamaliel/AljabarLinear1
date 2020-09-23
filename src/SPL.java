@@ -11,18 +11,35 @@ public class SPL {
         int len1D = matrix.length;
         int len2D = matrix[0].length;
         double[]  coefficient = new double[len1D];
-
+        boolean isParametrik = false;
+        int totalTiapBaris = 0;
         double lastVariable = matrix[len1D-1][len2D-2];
 
         for (int i=0; i<len1D; i++) {
             coefficient[i] = matrix[i][len2D-1];
         }
 
-        if (lastVariable == 0) {
-            System.out.println("SPL tidak ada solusi");
+        for (int i=0; i<len1D; i++) {
+            for (int j=0; j<len2D; j++) {
+                totalTiapBaris += matrix[i][j];
+            }
+
+            if (totalTiapBaris == 0) {
+                isParametrik = true;
+                break;
+            }
+            totalTiapBaris = 0;
+        }
+
+        if (isParametrik) {
+            System.out.println("SPL berbentuk parametrik");
         } else {
-            double[] hasil = subtitusiMundur(matrix, coefficient);
-            printMatrix1d(hasil);
+            if (lastVariable == 0) {
+                System.out.println("SPL tidak memiliki solusi");
+            } else {
+                double[] hasil = subtitusiMundur(matrix, coefficient);
+                printMatrix1d(hasil);
+            }
         }
     }
 
