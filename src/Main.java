@@ -116,9 +116,10 @@ public class Main {
     static double[][] g = {{2, 1, 4}, {6, 5, 0}, {1, 2, 0}};
     static double[][] h = {{1, 4, 5, 6}, {2, 0, 6, 3}, {4, 2, 1, 4}};
     static double[][] i = {{1, -1, 2, 5}, {2, -2, 4, 10}, {3, -1, 6, 5}};
-
-
     static double[][] j = {{0, 1, 5}, {3, -6, 9}, {5, 9, 1}};
+    static double[][] k = {{1, 1, 1, 0}, {2, 3, 1, 1}, {3, 1, 2, 1}};
+    static double[][] l = {{1, 1, 2, 4}, {2, -1, 1, 2}, {1, 2, 3, 6}};
+    static double[][] m = {{1, 1, 2, 4}, {2, -1, 1, 2}, {1, 2, 3, 7}};
     /* TEST ARRAY BUAT MENGHITUNG SPL lewat GAUSS dan DETERMINAN */
 
     public static void main(String[] args) {
@@ -128,12 +129,7 @@ public class Main {
 //             int spl = SPLMenu();
 //         }
 
-//        SPL.printMatrix2d(h);
-//        System.out.println(Arrays.toString(SPL.eliminasiGauss(h)));
-//        System.out.println(SPL.Determinan(h));
-//        double[][] hasil = SPL.reduksiOBE(h);
-//        SPL.printMatrix2d(hasil);
-        System.out.println(SPL.Determinan(j));
-//        SPL.eliminasiGauss(h);
+        SPL.eliminasiGauss(k);
+        SPL.eliminasiGaussJordan(k);
     }
 }
