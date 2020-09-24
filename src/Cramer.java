@@ -1,18 +1,4 @@
 public class Cramer {
-
-    /*
-    public void swapCol(Matriks matriks, int col1, int col2) {
-        int i;
-        for (i = 0; i < matriks.getRow(); i++) {
-            double temp = matriks.getElement(i, col1);
-            double b = matriks.getElement(i, col2);
-            matriks.setElement(i, col1, b);
-            matriks.setElement(i, col2, temp);
-        }
-    }
-    */
-
-
     public double Determinan(Matriks matriks, int variable) {
         // mengembalikan nilai determinan dengan cara cramer's rule
 
