@@ -1,4 +1,4 @@
-# AljabarLinear1
+# Aljabar Linear 1
 
 ## Ini permulaan dari tubes Algeo
 ## SPESIFIKASI TUGASBuatlah program dalam Bahasa Java untuk
