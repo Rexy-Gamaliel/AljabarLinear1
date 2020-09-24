@@ -41,13 +41,10 @@ public class Cramer {
             }
         }
 
-        OutputMatrix output = new OutputMatrix();
-        output.run(mainMatriks);
-
         // hitung determinan
 
         //diagonal positif
-        double sum = 0;
+        double det = 0;
         double mult = 1;
         int k;
         for (j = 0; j < matriks.getCol() - 1; j++) {
@@ -57,7 +54,7 @@ public class Cramer {
                 mult *= mainMatriks.getElement(i, k);
                 k++;
             }
-            sum += mult;
+            det += mult;
         }
 
         // diagonal negatif
@@ -69,9 +66,9 @@ public class Cramer {
                 mult *= mainMatriks.getElement(i, k);
                 k--;
             }
-            sum -= mult;
+            det -= mult;
         }
 
-        return sum;
+        return det;
     }
 }
