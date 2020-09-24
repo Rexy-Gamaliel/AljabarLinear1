@@ -49,4 +49,14 @@ public class Matriks {
         }
         return matrixString.toString();
     }
+
+    public void swapCol(int col1, int col2) {
+        int i;
+        for (i = 0; i < row; i++) {
+            double temp = M[i][col1];
+            double b = M[i][col2];
+            M[i][col1] = b;
+            M[i][col2] = temp;
+        }
+    }
 }
