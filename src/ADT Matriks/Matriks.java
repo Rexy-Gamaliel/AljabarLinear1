@@ -22,9 +22,13 @@ public class Matriks {
         return col;
     }
 
+    public double getElement(int idxRow, int idxCol) {
+        return M[idxRow][idxCol];
+    }
+
     // contoh deklarasi matriksnya
     // Matriks <nama matriks> = Matriks.createMatriks(row, col)
-    public static Matriks createMatriks(int newRow, int newCol){
+    public static Matriks createMatriks(int newRow, int newCol) {
         return new Matriks(newRow, newCol, new double[newRow][newCol]);
     }
 
