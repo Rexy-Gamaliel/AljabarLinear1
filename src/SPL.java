@@ -1,8 +1,11 @@
 package com.company;
 
 import java.text.DecimalFormat;
+import java.lang.Math;
 
 public class SPL {
+
+    public static int peubah = 0;
 
     /* Buat mencari SPL lewat eliminasi Gauss dengan OBE */
     public static void eliminasiGauss(double[][] matrix) {
@@ -45,6 +48,7 @@ public class SPL {
 
     /* Buat menghitung matriks ukuran N x N dengan menggunakan reduksi baris elementer */
     public static double Determinan(double[][] matrix) {
+        reduksiOBE(matrix);
         int lenBaris = matrix.length;
         int lenKolom = matrix[0].length;
         double determinan = 1;
@@ -57,7 +61,7 @@ public class SPL {
             System.out.println("Ukuran matriks harus N x N");
         }
 
-        return determinan;
+        return determinan * Math.pow(-1, peubah);
     }
 
     /* Buat menghitung operasi OBE pada matriks */
@@ -78,11 +82,11 @@ public class SPL {
                         String hasilStr = new DecimalFormat("##.##").format(matrix[k][j] - matrix[i][j] * factor);
                         matrix[k][j] = Double.parseDouble(hasilStr);
                     }
-//                    System.out.print(factor);
-//                    System.out.print(", ");
-//                    System.out.println();
+                    System.out.print(factor);
+                    System.out.print(", ");
+                    System.out.println();
                 }
-//                printMatrix2d(matrix);
+                printMatrix2d(matrix);
             }
         }
 
@@ -138,6 +142,8 @@ public class SPL {
                 matrix[rowY][k] = temp;
             }
         }
+
+        peubah += 1;
     }
 
     /* Helper function untuk nge-print matriks 2D */
