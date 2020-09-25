@@ -125,7 +125,7 @@ public class SPLMatriks {
 
                 if (matriksClass.getElement(k, i) != 0) {
                     for (int j = 0; j < len2D; j++) {
-//                        String hasilStr = new DecimalFormat("##.##########").format(matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
+//                        String hasilStr = new DecimalFormat("##.#####").format(matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
                         matriksClass.setElement(k, j, matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
                     }
 //                    System.out.print(factor);
