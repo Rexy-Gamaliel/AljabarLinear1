@@ -22,23 +22,13 @@ public class Cramer {
                 columnB[i] = matriks.getElement( i, matriks.getCol()-1);
             }
 
-            // copy isi matriks
-            /*
-            double value;
-            for(i = 0; i < matriks.getRow(); i++){
-                for (j = 0; j < matriks.getCol()-1; j++){
-                    value = matriks.getElement(i,j);
-                    newMatriks.setElement(i,j, value);
-                }
-            }*/
-
             // swap column b dengan colom variable
             for(i = 0; i < newMatriks.getRow(); i++){
                 value = columnB[i];
                 newMatriks.setElement(i, variable, value);
             }
         }
-        determinan = SPL.Determinan(newMatriks);
+        determinan = SPLMatriks.Determinan(newMatriks);
         return determinan;
     }
 }
