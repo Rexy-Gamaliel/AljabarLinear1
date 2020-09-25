@@ -1,6 +1,6 @@
 import java.text.DecimalFormat;
 
-public class SPLMatrix {
+public class SPLMatriks {
     // Variabel untuk mengetahui sudah berapa kali baris matriks ditukar
     public static int peubah = 0;
 
@@ -72,11 +72,11 @@ public class SPLMatrix {
             } else {
                 if (status == 0) {
                     reduksiOBE(matriksClass);
-                    coefficient = SPLMatrix.getCoefficient(matriksClass);
+                    coefficient = SPLMatriks.getCoefficient(matriksClass);
                     hasil = subtitusiMundur(matriksClass, coefficient);
                 } else {
                     reduksiOBEJordan(matriksClass);
-                    coefficient = SPLMatrix.getCoefficient(matriksClass);
+                    coefficient = SPLMatriks.getCoefficient(matriksClass);
                     hasil = subtitusiMundurJordan(matriksClass, coefficient);
                 }
 //                printMatrix2d(matrix);
@@ -89,7 +89,7 @@ public class SPLMatrix {
     /* Untuk menghitung determinan matriks ukuran N x N dengan menggunakan OBE
      *  Cara penggunaan tinggal pangil SPL.Determinan(isiMatrix)
      */
-    public static void Determinan(Matriks matriksClass) {
+    public static double Determinan(Matriks matriksClass) {
         reduksiOBE(matriksClass);
 
         int lenBaris = matriksClass.getRow();
@@ -104,9 +104,8 @@ public class SPLMatrix {
             System.out.println("Ukuran matriks harus N x N");
         }
 
-        printMatrix2d(matriksClass);
         determinan *= Math.pow(-1, peubah);
-        System.out.println(determinan);
+        return determinan;
     }
 
     /* Untuk mereduksi elemen-elemen matrix sehingga terbentuk matrix segitiga atas
