@@ -4,14 +4,18 @@ public class Cramer {
         // variable = -1, maka kembalikan determinan utama
         // variable = 0, kembalikan nilai determinan untuk mencari X1
 
+        int i,j;
+        Matriks newMatriks = Matriks.createMatriks(matriks.getRow(), matriks.getCol()-1);
+        // copy matriks not include b column
+        double value;
+        for(i = 0; i < matriks.getRow(); i++){
+            for (j = 0; j < matriks.getCol()-1; j++){
+                value = matriks.getElement(i,j);
+                newMatriks.setElement(i,j, value);
+            }
+        }
         double determinan;
-        if(variable == -1)
-            determinan = SPL.Determinan(matriks);
-        else{
-            int i,j;
-            // buat matriks tanpa kolom b
-            Matriks newMatriks = Matriks.createMatriks(matriks.getRow(), matriks.getCol()-1);
-
+        if (variable >= 0 && variable < matriks.getCol()-1){
             // siapkan array b
             double[] columnB = new double[matriks.getRow()]; // berukuran sepanjang row
             for(i = 0; i < matriks.getRow();i++){
@@ -19,22 +23,22 @@ public class Cramer {
             }
 
             // copy isi matriks
+            /*
             double value;
             for(i = 0; i < matriks.getRow(); i++){
                 for (j = 0; j < matriks.getCol()-1; j++){
                     value = matriks.getElement(i,j);
                     newMatriks.setElement(i,j, value);
                 }
-            }
+            }*/
 
             // swap column b dengan colom variable
             for(i = 0; i < newMatriks.getRow(); i++){
                 value = columnB[i];
                 newMatriks.setElement(i, variable, value);
             }
-
-            determinan = SPL.Determinan(newMatriks);
         }
+        determinan = SPL.Determinan(newMatriks);
         return determinan;
     }
 }
