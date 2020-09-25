@@ -26,6 +26,10 @@ public class Matriks {
         return M[idxRow][idxCol];
     }
 
+    public double[][] getM() {
+        return M;
+    }
+
     // contoh deklarasi matriksnya
     // Matriks <nama matriks> = Matriks.createMatriks(row, col)
     public static Matriks createMatriks(int newRow, int newCol) {
