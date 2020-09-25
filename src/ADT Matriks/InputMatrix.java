@@ -77,9 +77,9 @@ public class InputMatrix {
             for (j = 0; j < matriks.getCol(); j++) {
                 // elemen terakhir input diberi pesan
                 if (j == matriks.getCol() - 1) {
-                    System.out.println("Masukkan elemen b" + i + " : ");
+                    System.out.print("Masukkan elemen b" + i + " : ");
                 } else {
-                    System.out.println("Masukkan elemen a" + i + j + " : ");
+                    System.out.print("Masukkan elemen a" + i + j + " : ");
                 }
                 double value = scanner.nextDouble();
                 matriks.setElement(i, j, value);
@@ -95,10 +95,34 @@ public class InputMatrix {
         int i, j;
         for (i = 0; i < matriks.getRow(); i++) {
             for (j = 0; j < matriks.getCol(); j++) {
-                System.out.println("Masukkan elemen a" + i + j + " : ");
+                System.out.print("Masukkan elemen a" + i + j + " : ");
                 double value = scanner.nextDouble();
                 matriks.setElement(i, j, value);
             }
         }
     }
+
+
+    // input interpolasi
+    // ukuran matriks[n][2]
+    // input x yang ditaksir ada di main
+    public void interpolasiRun(Matriks matriks) {
+        Scanner scanner = new Scanner(System.in);
+        int i, j;
+        for (i = 0; i < matriks.getRow(); i++) {
+            for (j = 0; j < matriks.getCol(); j++) {
+                if (j == 0) {
+                    System.out.print("Masukkan nilai X" + i + " : ");
+                } else if (j == 1) {
+                    System.out.print("Masukkan nilai Y" + i + " : ");
+                }
+                double value = scanner.nextDouble();
+                matriks.setElement(i, j, value);
+            }
+        }
+    }
+
+    // input n peubah diluar
+    // input k diluar
+    // spl run regresi
 }
