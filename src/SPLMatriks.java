@@ -92,12 +92,12 @@ public class SPLMatriks {
     public static double Determinan(Matriks matriksClass) {
         reduksiOBE(matriksClass);
 
-        int lenBaris = matriksClass.getRow();
-        int lenKolom = matriksClass.getCol();
+        int len1D = matriksClass.getRow();
+        int len2D = matriksClass.getCol();
         double determinan = 1;
 
-        if (lenBaris == lenKolom) {
-            for (int i=0; i<lenBaris; i++) {
+        if (len1D == len2D) {
+            for (int i=0; i<len1D; i++) {
                 determinan *= matriksClass.getElement(i, i);
             }
         } else {
@@ -295,7 +295,7 @@ public class SPLMatriks {
                             if (matriksClass.getElement(i, j) != 1) {
                                 System.out.printf("%.1fx%d + ", matriksClass.getElement(i, j), j+1);
                             } else {
-                                System.out.printf("x%d + ", j+1);
+                                System.out.printf("x%d ", j+1);
                             }
                         }
                     }
