@@ -108,7 +108,7 @@ public class SPLMatriks {
         return determinan;
     }
 
-/* Untuk mereduksi elemen-elemen matrix sehingga terbentuk matrix segitiga atas
+    /* Untuk mereduksi elemen-elemen matrix sehingga terbentuk matrix segitiga atas
      *  Cara penggunaan SPL.reduksiOBE(isiMatrix)
      */
     public static Matriks reduksiOBE(Matriks matriksClass) {
@@ -168,6 +168,10 @@ public class SPLMatriks {
                 }
 //                printMatrix2d(matriksClass);
             }
+        }
+
+//        printMatrix2d(matrix);
+        return matriksClass;
     }
 
     /* Helper function untuk mencari pivot di dalam matriks yang != 0
