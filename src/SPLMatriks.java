@@ -157,33 +157,33 @@ public class SPLMatriks {
     /* Untuk mereduksi elemen-elemen matrix sehingga terbentuk matrix segitiga atas
      *  Cara penggunaan SPL.reduksiOBE(isiMatrix)
      */
-    public static Matriks reduksiOBE(Matriks matiksClass) {
-        int len1D = matiksClass.getRow();
-        int len2D = matiksClass.getCol();
+    public static Matriks reduksiOBE(Matriks matriksClass) {
+        int len1D = matriksClass.getRow();
+        int len2D = matriksClass.getCol();
 
         for (int i = 0; i < len1D; i++) {
 
-            tukarZeroPivot(matiksClass, i);
-            double pivot = matiksClass.getElement(i, i);
+            tukarZeroPivot(matriksClass, i);
+            double pivot = matriksClass.getElement(i, i);
 
             for (int k = i + 1; k < len1D; k++) {
-                double factor = matiksClass.getElement(k, i) / pivot;
+                double factor = matriksClass.getElement(k, i) / pivot;
 
-                if (matiksClass.getElement(k, i) != 0) {
+                if (matriksClass.getElement(k, i) != 0) {
                     for (int j = 0; j < len2D; j++) {
-                        String hasilStr = new DecimalFormat("##.##").format(matiksClass.getElement(k, j) - matiksClass.getElement(i, j) * factor);
-                        matiksClass.setElement(k, j, Double.parseDouble(hasilStr));
+//                        String hasilStr = new DecimalFormat("##.##########").format(matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
+                        matriksClass.setElement(k, j, matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
                     }
 //                    System.out.print(factor);
 //                    System.out.print(", ");
 //                    System.out.println();
                 }
-//                printMatrix2d(matrix);
+//                printMatrix2d(matriksClass);
             }
         }
 
         //printMatrix2d(matrix);
-        return matiksClass;
+        return matriksClass;
     }
 
     /* Untuk mereduksi elemen-elemen matrix sehingga terbentuk matrix eselon
@@ -203,8 +203,10 @@ public class SPLMatriks {
 
                 if (matriksClass.getElement(k, i) != 0) {
                     for (int j = 0; j < len2D; j++) {
-                        String hasilStr = new DecimalFormat("##.##").format(matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
-                        matriksClass.setElement(k, j, Double.parseDouble(hasilStr));
+//                        String hasilStr = new DecimalFormat("##.##").format(matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
+//                        matriksClass.setElement(k, j, Double.parseDouble(hasilStr));
+
+                        matriksClass.setElement(k, j, matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
                     }
 //                    System.out.print(factor);
 //                    System.out.print(", ");
@@ -300,8 +302,8 @@ public class SPLMatriks {
         for (int i=0; i<len1D; i++) {
             System.out.print("[");
             for (int j = 0; j < len2D; j++) {
-                String hasilStr = new DecimalFormat("##.##").format(matriksClass.getElement(i, j));
-                System.out.print(hasilStr);
+//                String hasilStr = new DecimalFormat("##.##").format(matriksClass.getElement(i, j));
+                System.out.printf("%.7f", matriksClass.getElement(i, j));
                 if (j!=len2D-1) {
                     System.out.print(", ");
                 }
@@ -358,9 +360,9 @@ public class SPLMatriks {
         System.out.println("Solusi Tunggal: ");
         for (int i=0; i<len1D; i++) {
             if (i != len1D-1) {
-                System.out.printf("x%d = %.1f, ", i+1, matrix[i]);
+                System.out.printf("x%d = %.5f, ", i+1, matrix[i]);
             } else {
-                System.out.printf("x%d = %.1f ", i+1, matrix[i]);
+                System.out.printf("x%d = %.5f ", i+1, matrix[i]);
             }
         }
         System.out.println();
