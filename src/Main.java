@@ -1,5 +1,3 @@
-package com.company;
-
 import java.util.Arrays;
 import java.util.*;
 
@@ -129,7 +127,8 @@ public class Main {
 //             int spl = SPLMenu();
 //         }
 
-        SPL.eliminasiGauss(k);
-        SPL.eliminasiGaussJordan(k);
+        Matriks matriks = new Matriks(3, 3, f);
+        SPLMatrix.Determinan(matriks);
+        SPLMatrix.eliminasiGaussJordan(matriks);
     }
 }
