@@ -1,9 +1,16 @@
-# Aljabar Linear 1
+# Tugas Besar Aljabar Linear 1
 
-## Ini permulaan dari tubes Algeo
-## SPESIFIKASI TUGASBuatlah program dalam Bahasa Java untuk
-
-1.Menghitung  solusi  SPL  dengan  metode  eliminasi  Gauss, metode  Eliminasi Gauss-Jordan,  metode  matriks  balikan,  dan  kaidah  Cramer  (kaidah  Cramer khusus untuk SPL dengan n peubahdan npersamaan). 
-2.Menyelesaikan persoalan interpolasidan regresi linier.
-3.Menghitung matriks balikan
-4.Menghitung  determinan  matriks  dengan  berbagai  metode  (reduksi  baris  dan ekspansi kofaktor). 
+## Deskripsi
+  Program dalam bahasa java untuk menghitung berbagai permasalahan matriks.
+  
+## Instalasi
+  `git pull https://github.com/mhmmdjafarg/AljabarLinear1.git`
+## Fitur
+1. Menghitung  solusi  SPL  
+    -Metode  eliminasi  Gauss
+    -Metode  Eliminasi Gauss-Jordan
+    -Metode  matriks  balikan
+    -Kaidah  Cramer  (kaidah  Cramer khusus untuk SPL dengan n peubah dan n persamaan). 
+2. Menyelesaikan persoalan interpolasi dan regresi linier.
+3. Menghitung matriks balikan
+4. Menghitung  determinan  matriks  dengan  berbagai  metode  (reduksi  baris  dan ekspansi kofaktor). 
