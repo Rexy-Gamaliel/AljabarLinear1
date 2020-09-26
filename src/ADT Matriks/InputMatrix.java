@@ -102,9 +102,8 @@ public class InputMatrix {
         }
     }
 
-
     // input interpolasi
-    // ukuran matriks[n][2]
+    // ukuran matriks[n+1][2]
     // input x yang ditaksir ada di main
     public void interpolasiRun(Matriks matriks) {
         Scanner scanner = new Scanner(System.in);

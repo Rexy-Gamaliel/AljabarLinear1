@@ -25,7 +25,7 @@ public class interpolasi {
                 // kali value sampai value^n
             }
         }
-
+        System.out.println("Matriks augmented untuk interpolasi : ");
         System.out.println(newMatriks);
         return newMatriks;
     }
@@ -39,7 +39,7 @@ public class interpolasi {
         double detX;
         double a;
         double result = 0;
-        double power = 0;
+        int power = 0;
         double X;
         for (i = 0; i < MatriksInterpolasi.getCol() - 1; i++) {
             X = Math.pow(taksiranX, power);
@@ -51,5 +51,4 @@ public class interpolasi {
         return result;
         // nanti hasil dirounding
     }
-
 }

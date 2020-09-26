@@ -199,12 +199,31 @@ public class Main {
             } else {
                 System.out.println("Matriks harus berukuran N x N");
             }
-        } else if (menu == 3) {
+        } else if (menu == 3) { //invers
 
+        } else if (menu == 4) {
+            // interpolasi
+
+            jenisinput = JenisInput();
+            if (jenisinput == 1) {
+                matriks = input.readFile();
+            } else {
+                System.out.print("Masukkan nilai derajat interpolasi n : ");
+                int n = scanner.nextInt();
+                matriks = Matriks.createMatriks(n + 1, 2);
+                input.interpolasiRun(matriks);
+            }
+            // ubah menjadi matriks augmented
+            matriks = interpolasi.MakeInterpolasi(matriks);
+            System.out.print("Masukkan nilai yang akan ditaksir X : ");
+            double X = scanner.nextDouble();
+            double result = interpolasi.HasilTaksiran(matriks, X);
+            System.out.print("Hasil taksiran P(x), untuk x = " + X + " adalah ");
+            System.out.format("%.4f", result);
+        } else if (menu == 5) {
+            // regresi linear
+        } else {
+            // keluar
         }
-
-        // Matriks matriks = new Matriks(3, 3, f);
-        //     SPLMatriks.Determinan(matriks)
-        //   SPLMatriks.eliminasiGaussJordan(matriks);
     }
 }
