@@ -4,7 +4,7 @@
   Program dalam bahasa java untuk menghitung berbagai permasalahan matriks.
   
 ## Instalasi
-  `git pull https://github.com/mhmmdjafarg/AljabarLinear1.git`
+  ```git clone https://github.com/mhmmdjafarg/AljabarLinear1.git```
 ## Fitur
 1. Menghitung  solusi  SPL  
    - Metode  eliminasi  Gauss
