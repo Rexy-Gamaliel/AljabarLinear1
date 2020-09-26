@@ -17,7 +17,6 @@ public class Main {
         System.out.println("5. Regresi linier berganda");
         System.out.println("6. Keluar");
 
-
         // minta masukan pilihan
         System.out.print("Pilih menu :");
         int choose = in.nextInt();
@@ -100,29 +99,7 @@ public class Main {
     }
     /* Buat clear screen setiap pemanggilan menu */
 
-    /* TEST ARRAY BUAT MENGHITUNG SPL lewat GAUSS dan DETERMINAN */
-    static double[][] a = {{3, -2, 0, 5, 2},
-            {4, 5, 8, 1, 4},
-            {0, 1, 2, 1, 5},
-            {2, 7, 6, 5, 7}};
 
-    static double[][] b = {{0, 7, -1, 3, 1, 5},
-            {0, 3, 4, 1, 7, 7},
-            {6, 2, 0, 2, -1, 2},
-            {2, 1, 2, 0, 2, 3},
-            {3, 4, 1, -2, 1, 4}};
-
-    static double[] c = {0, 5, -12};
-    static double[][] d = {{0, 7, -1, 3, 1, 5}, {0, 3, 4, 1, 7, 7}, {6, 2, 0, 2, -1, 2}, {2, 1, 2, 0, 2, 3}, {3, 4, 1, -2, 1, 4}};
-    static double[][] e = {{1, 1, -1, -1, 1}, {2, 5, -7, -5, -2}, {2, -1, 1, 3, 4}, {5, 2, -4, 2, 6}};
-    static double[][] f = {{2, 3, 4}, {6, 8, 5}, {3, 7, 1}};
-    static double[][] g = {{2, 1, 4}, {6, 5, 0}, {1, 2, 0}};
-    static double[][] h = {{1, 4, 5, 6}, {2, 0, 6, 3}, {4, 2, 1, 4}};
-    static double[][] i = {{1, -1, 2, 5}, {2, -2, 4, 10}, {3, -1, 6, 5}};
-    static double[][] j = {{0, 1, 5}, {3, -6, 9}, {5, 9, 1}};
-    static double[][] k = {{1, 1, 1, 0}, {2, 3, 1, 1}, {3, 1, 2, 1}};
-    static double[][] l = {{1, 1, 2, 4}, {2, -1, 1, 2}, {1, 2, 3, 6}};
-    static double[][] m = {{1, 1, 2, 4}, {2, -1, 1, 2}, {1, 2, 3, 7}};
     /* TEST ARRAY BUAT MENGHITUNG SPL lewat GAUSS dan DETERMINAN */
 
     /* MAIN PROGRAM
@@ -139,6 +116,10 @@ public class Main {
     2.Metode eliminasi Gauss-Jordan
     3.Metode matriks balikan
     4.Kaidah Cramer
+
+    Sub Menu 2
+    1. Reduksi baris
+    2. Cofactor
 */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -200,6 +181,25 @@ public class Main {
                 System.out.println("Matriks harus berukuran N x N");
             }
         } else if (menu == 3) { //invers
+            jenisinput = JenisInput();
+            if (jenisinput == 1) {
+                matriks = input.readFile();
+            } else {
+                System.out.print("Masukkan ukuran matriks[n][n] n: ");
+                int n = scanner.nextInt();
+                matriks = Matriks.createMatriks(n, n);
+                input.DetRun(matriks);
+                System.out.println("Matriks : ");
+                System.out.println(matriks);
+            }
+            double determinan = SPLMatriks.Determinan(matriks);
+            if (determinan == 0) {
+                System.out.println("Matriks tidak memiliki balikan");
+            } else {
+                System.out.println("Matriks balikan : ");
+                matriks = invers.inverseMatriks(matriks);
+                System.out.println(matriks);
+            }
 
         } else if (menu == 4) {
             // interpolasi
@@ -225,5 +225,6 @@ public class Main {
         } else {
             // keluar
         }
+
     }
 }
