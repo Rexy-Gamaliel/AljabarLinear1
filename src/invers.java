@@ -1,85 +1,46 @@
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class invers {
 
-  public static Matriks inverseMatriks(Matriks matrix) {
-    /* Prekondisi: matrix merupakan matriks persegi */
+  public static Matriks inverseMatriks(Matriks MInput) {
+    /* Prekondisi: MInput merupakan matriks persegi */
     /**
      * Kamus Lokal:
-     * N          : int         { ukuran matrix }
-     * invMatrix  : Matriks     { hasil matriks invers }
-     * invBuilder : double[][]  { komponen array dr matriks invers sebelum dioperasikan }
-     * tempInv    : Matriks     { matriks yang dioperasikan untuk menghasilkan matriks invers }
-     * invBuilder2: double[][]  { komponen array matriks hasil invers }
+     * N              : int         { ukuran matrix }
+     * MInputExtended : double[][]  { komponen array dari MInput, diextend dengan matriks identitas di sebelah kanan }
+     * MProses        : Matriks     { matriks yang dioperasikan untuk menghasilkan matriks invers }
+     * MInvers        : Matriks     { hasil matriks invers }
      */
-    int N = matrix.getCol();
-    Matriks tempInv, invMatriks;
-    double[][] invBuilder = new double[N][2*N];
+    int N = MInput.getCol();
+    Matriks MProses, MInvers;
+    double[][] MInputExtended = new double[N][2*N];
     int i, j;
 
-    // Menginisialisasi invMatrix
+    // Menginisialisasi MInvers
     for (i=0; i<N; i++) {
       for (j=0; j<N; j++) {
         if (i==j) {
-            invBuilder[i][j] = matrix.getElement(i, j);
-            invBuilder[i][j+N] = 1;
+            MInputExtended[i][j] = MInput.getElement(i, j);
+            MInputExtended[i][j+N] = 1;
         }
         else {
-            invBuilder[i][j] = matrix.getElement(i, j);
-            invBuilder[i][j+N] = 0;
+            MInputExtended[i][j] = MInput.getElement(i, j);
+            MInputExtended[i][j+N] = 0;
         }
       }
     }
-    tempInv = new Matriks(N, 2*N, invBuilder);
+    MProses = new Matriks(N, 2*N, MInputExtended);
 
-    tempInv = SPLMatriks.reduksiOBE(tempInv);
-    tempInv = SPLMatriks.reduksiOBEJordan(tempInv);
-    //SPLMatriks.printMatrix2d(tempInv);
-
-    double[][] tempInv2 = new double[N][N];
-    for (i=0; i<N; i++) {
-        for (j=0; j<N; j++) {
-            tempInv2[i][j] = tempInv.getElement(i, j+N);
-        }
-    }
+    MProses = SPLMatriks.reduksiOBE(MProses);
+    MProses = SPLMatriks.reduksiOBEJordan(MProses);
     
-    invMatriks = new Matriks(N, N, tempInv2);
+    MInvers = new Matriks(N, N, new double[N][N]);
+    for (i=0; i<N; i++) {
+      for (j=0; j<N; j++) {
+        MInvers.setElement(i, j, MProses.getElement(i, j+N));
+      }
+    }
 
-    return invMatriks;
+    return MInvers;
   }
-  
-  //public static Matriks inverseMatriks(Matriks matrix) {
-  //  /* Prekondisi: matrix merupakan matriks persegi */
-  //  /**
-  //   * Kamus Lokal:
-  //   * N          : int       { ukuran matrix }
-  //   * invMatrix  : Matrix
-  //   */
-  //  int N = Matriks.getArray().length;
-  //  Matriks tempInv, invMatriks;
-  //  double[][] invBuilder;
-  //  int i, j;
-//
-  //  // Menginisialisasi invMatrix
-  //  for (i=0; i<N; i++) {
-  //    for (j=0; j<N; j++) {
-  //      if (i==j) {
-  //        invBuilder[i][j] = 0;
-  //        invBuilder[i][j+N] = 1;
-  //      }
-  //      else {
-  //        invBuilder[i][j] = 0;
-  //        invBuilder[i][j+N] = 0;
-  //      }
-  //    }
-  //  }
-  //  tempInv = new Matriks(N, 2*N, invBuilder);
-//
-  //  SPLMatriks.eliminasiGaussJordan(tempInv);
-  //  SPLMatriks.printMatrix2d(tempInv);
-  //  
-  //  //return invMatrix;
-  //}
-
-
 }

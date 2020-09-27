@@ -37,7 +37,7 @@ public class SPLMatriks {
     public static void hasilGauss(Matriks matriksClass, int status) {
         int len1D = matriksClass.getRow();
         int len2D = matriksClass.getCol();
-        double[]  coefficient = new double[len1D];
+        double[] coefficient = new double[len1D];
         double[] hasil;
         int rowParametrik = 9999;
         boolean isParametrik = true;
@@ -108,6 +108,52 @@ public class SPLMatriks {
         return determinan;
     }
 
+    /* Mengembalikan matriks inverse dari matriks input */
+    public static Matriks inverseMatriks(Matriks MInput) {
+        /**
+         * Prekondisi: MInput merupakan matriks persegi 
+         * Menentukan invers matriks menggunakan OBE
+        */
+        /**
+         * Kamus Lokal:
+         * N              : int         { ukuran matrix }
+         * MInputExtended : double[][]  { komponen array dari MInput, diextend dengan matriks identitas di sebelah kanan }
+         * MProses        : Matriks     { matriks yang dioperasikan untuk menghasilkan matriks invers }
+         * MInvers        : Matriks     { hasil matriks invers }
+         */
+        int N = MInput.getCol();
+        Matriks MProses, MInvers;
+        double[][] MInputExtended = new double[N][2*N];
+        int i, j;
+    
+        // Menginisialisasi MInvers
+        for (i=0; i<N; i++) {
+          for (j=0; j<N; j++) {
+            if (i==j) {
+                MInputExtended[i][j] = MInput.getElement(i, j);
+                MInputExtended[i][j+N] = 1;
+            }
+            else {
+                MInputExtended[i][j] = MInput.getElement(i, j);
+                MInputExtended[i][j+N] = 0;
+            }
+          }
+        }
+        MProses = new Matriks(N, 2*N, MInputExtended);
+    
+        MProses = SPLMatriks.reduksiOBE(MProses);
+        MProses = SPLMatriks.reduksiOBEJordan(MProses);
+        
+        MInvers = new Matriks(N, N, new double[N][N]);
+        for (i=0; i<N; i++) {
+          for (j=0; j<N; j++) {
+            MInvers.setElement(i, j, MProses.getElement(i, j+N));
+          }
+        }
+    
+        return MInvers;
+      }
+
     /* Untuk mereduksi elemen-elemen matrix sehingga terbentuk matrix segitiga atas
      *  Cara penggunaan SPL.reduksiOBE(isiMatrix)
      */
@@ -125,7 +171,7 @@ public class SPLMatriks {
 
                 if (matriksClass.getElement(k, i) != 0) {
                     for (int j = 0; j < len2D; j++) {
-//                        String hasilStr = new DecimalFormat("##.#####").format(matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
+//                        String hasilStr = new DecimalFormat("##.##########").format(matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
                         matriksClass.setElement(k, j, matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
                     }
 //                    System.out.print(factor);
