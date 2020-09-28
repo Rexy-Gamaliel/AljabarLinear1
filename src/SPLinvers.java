@@ -1,47 +1,185 @@
+//import java.util.Arrays;
+
 public class SPLinvers {
-    public static Matriks SPLinvers(Matriks matriks) {
-        // Prekondisi : Determinan matriks koefisien != 0 / matriks koefisisen memiliki invers
+  private static boolean IsInversValid = true;
 
-        // mengembalikan matriks solusi berukuran  matriks.getrow() x 1
-        // rumus : AX = B
-        //  A^-1AX = A^-1B
-        // X = A^-1 B
-        // ambil matriks keofisisen
-        Matriks koefMatriks = Matriks.createMatriks(matriks.getRow(), matriks.getCol() - 1);
-        int i, j;
-        double value;
-        for (i = 0; i < koefMatriks.getRow(); i++) {
-            for (j = 0; j < koefMatriks.getCol(); j++) {
-                value = matriks.getElement(i, j);
-                koefMatriks.setElement(i, j, value);
-            }
+  // Getter/setter
+  public static boolean getIsInversValid() {
+    return IsInversValid;
+  }
+  public static void setIsInversValid(boolean x) {
+    IsInversValid = x;
+  }
+
+  /* Melakukan split pada matriks augmented */
+  public static void SplitMatriks (Matriks MKiri, Matriks MKanan) {
+    /**
+     * I.S.: MKiri merupakan matriks augmented berukuran n x m, yang merupakan penggabungan antara
+     * matriks X pada m-1 kolom pertama dan matriks Y pada kolom terakhir
+     * MKanan merupakan matriks sembarang berukuran n x 1 untuk menampung matriks Y
+     * F.S.: MKiri merupakan matriks X berukuran n x m-1, MKanan merupakan matriks Y berukuran n x 1
+     */
+    int n = MKiri.getRow();
+    int m = MKiri.getCol();
+    
+    // Menampung isi matriks Y pada MKanan
+    for (int i=0; i<n; i++) {
+      MKanan.setElement(i, 0, MKiri.getElement(i, m-1));
+    }
+    // Menampung isi matriks X pada MTemp untuk kemudian dipindahkan ke MKiri
+    Matriks MTemp = new Matriks(n, m-1, new double[n][m-1]);
+    for (int i=0; i<MTemp.getRow(); i++) {
+      for (int j=0; j<MTemp.getCol(); j++) {
+        MTemp.setElement(i, j, MKiri.getElement(i,j));
+      }
+    }
+    MKiri = MTemp;
+  }
+
+  /* Menghasilkan invers dari matriks */
+  public static Matriks inverseMatriks(Matriks MInput) {
+    /** Prekondisi: MInput merupakan matriks X setelah di-split dari matriks augmented
+     * Dicek terlebih dahulu apakah matriks berbentuk persegi atau tidak
+     * Jika tidak memiliki invers, mengembalikin matriks dengan semua elemen bernilai 0
+    */
+    /**
+     * Kamus Lokal:
+     * NB, NK         : int         { ukuran baris dan kolom MInput }
+     * MInputExtended : double[][]  { komponen array dari MInput (tidak augmented), diextend dengan matriks identitas di sebelah kanan }
+     * MProses        : Matriks     { matriks yang dioperasikan untuk menghasilkan matriks invers }
+     * MInvers        : Matriks     { hasil matriks invers }
+     */
+    int NB = MInput.getRow();
+    int NK = MInput.getCol();
+
+    if (NB != NK) {   // tidak bisa dicari matriks inversnya
+      setIsInversValid(false);
+      Matriks MInvers = new Matriks(NB, NB, new double[NB][NB]);
+      for (int i=0; i<NB; i++) {
+        for (int j=0; j<NB; j++) {
+          MInvers.setElement(i, j, 0);
         }
-
-        // simpan nilai matriks hasil
-        Matriks hasil = Matriks.createMatriks(matriks.getRow(), 1);
-        for (i = 0; i < matriks.getRow(); i++) {
-            value = matriks.getElement(i, matriks.getCol() - 1);
-            hasil.setElement(i, 0, value);
+      }
+      return MInvers;
+    }
+    else {
+      Matriks MProses, MInvers;
+      double[][] MInputExtended = new double[NB][2*(NK-1)];
+      int i, j;
+  
+      // Menginisialisasi MInvers
+      for (i=0; i<NB; i++) {
+        for (j=0; j<NB; j++) {
+          if (i==j) {
+              MInputExtended[i][j] = MInput.getElement(i, j);
+              MInputExtended[i][j+NB] = 1;
+          }
+          else {
+              MInputExtended[i][j] = MInput.getElement(i, j);
+              MInputExtended[i][j+NB] = 0;
+          }
         }
+      }
+      MProses = new Matriks(NB, 2*NB, MInputExtended);
+  
+      MProses = SPLMatriks.reduksiOBE(MProses);
+      MProses = SPLMatriks.reduksiOBEJordan(MProses);
+  
+      // mengecek apakah terdapat elemen diagonal 0
+      setIsInversValid(true);
+      //boolean IsValid = getIsInversValid();
+      i = 0;
+      while (i < NB && getIsInversValid()) {
+        if (MProses.getElement(i,i) == 0) {
+          setIsInversValid(false);
+        }
+        i++;
+      }
+      
+      if (getIsInversValid()) {
+        MInvers = new Matriks(NB, NB, new double[NB][NB]);
+        for (i=0; i<NB; i++) {
+          for (j=0; j<NB; j++) {
+            MInvers.setElement(i, j, MProses.getElement(i, j+NB));
+          }
+        }
+      }
+      else {
+        MInvers = new Matriks(NB, NB, new double[NB][NB]);
+        for (i=0; i<NB; i++) {
+          for (j=0; j<NB; j++) {
+            MInvers.setElement(i, j, 0);
+          }
+        }
+      }
+      return MInvers;
+    }
+  }
 
-        // inverse matriks koefisisen
-        koefMatriks = invers.inverseMatriks(koefMatriks);
+  /* Mengalikan 2 matriks */
+  public static Matriks KaliMatriks (Matriks M1, Matriks M2) {
+    /* Menghasilkan hasil kali matriks M1 berukuran a x b dan M2 berukuran b x c */
+    /* Prekondisi: ukuran kolom M1 == ukuran barus M2 */
+    int a = M1.getRow();
+    int b = M1.getCol(); //= M2.getRow()
+    int c = M2.getCol();
+    Matriks MKali;
+    double[][] hasilKali = new double[a][c];
 
-        Matriks solutionMatriks = Matriks.createMatriks(matriks.getRow(), 1);
-        solutionMatriks = Matriks.KaliMatriks(koefMatriks, hasil);
-        return solutionMatriks;
+    int i, j, k;
+    double temp;
+
+    for (i=0; i<a; i++) {
+      for (j=0; j<c; j++) {
+        temp = 0;
+        for (k=0; k<b; k++) {
+          temp += M1.getElement(i, k) * M2.getElement(k, j);
+        }
+        hasilKali[i][j] = temp;
+      }
     }
 
+    MKali = new Matriks(a, c, hasilKali);
+    return MKali;
+  }
 
-    public static void InverseSolution(Matriks matriks) {
-        // menerima matriks hasil dari fungsi SPLInvers
-        // menampilkan output solusi
-        int i;
-        System.out.println("Solusi dari Sistem Persamaan linear tersebut adalah : ");
-        for (i = 0; i < matriks.getRow(); i++) {
-            System.out.print("X" + i + " = ");
-            System.out.print(matriks.getElement(i, 0));
-            System.out.println();
-        }
+  /* Menampilkan solusi SPL */
+  public static void solusiSPLInverse(Matriks MAugmented) {
+    /**Menentukan solusi SPL menggunakan metode invers
+     * Diberikan matriks Ax = B, 
+     * maka x = A^(-1) B
+     */
+    /**I.S.: MAugmented berukuran n x m terdefinisi dan merupakan input user
+     * F.S.: menampilkan elemen2 matriks x, yakni solusi dari SPL
+     * Proses: memecah matriks MAugmented menjadi hanya matriks X,
+     *  mencari inversnya, untuk invers yg valid dihitung x = A^(-1) B
+     */
+    int n = MAugmented.getRow();
+    //int m = MAugmented.getCol();
+
+    // Melakukan spliting terhadap MAugmented
+    Matriks B = new Matriks (n, 1, new double[n][1]);
+    Matriks A = MAugmented;
+    SplitMatriks(A, B);
+
+    Matriks AInvers = inverseMatriks(A);
+
+    if (!(getIsInversValid())) {
+      System.out.println("Matriks tidak memiliki invers dan tidak dapat dicari hasil SPL-nya menggunakan metode ini.");
     }
+    else {
+      // dijamin akan memberikan hasil unik
+      Matriks MatriksX = new Matriks(A.getCol(), 1, new double[A.getCol()][1]);
+      //Matriks AInvers = inverseMatriks(A);
+      
+      MatriksX = KaliMatriks(AInvers, B);
+      
+      System.out.println("Solusi unik:");
+      for (int i=0; i<MatriksX.getCol(); i++) {
+        System.out.print("x_" + (i+1) + " = ");
+        System.out.format("%.4f", MatriksX.getElement(i,0));
+        System.out.println();
+      }
+    }
+  }
 }
