@@ -5,10 +5,9 @@ public class SPLMatriks {
     public static int peubah = 0;
 
     /* Buat mencari SPL lewat eliminasi Gauss dengan OBE
-     * Cara penggunaan tinggal panggil SPL.eliminasiGauss(isiMatrix) */
+     * Cara penggunaan tinggal panggil SPLMatriks.eliminasiGauss(isiMatrix) */
     public static void eliminasiGauss(Matriks matriks) {
         Matriks hasilOBEMatriks = reduksiOBE(matriks);
-        printMatrix2d(matriks);
 
         if (isNotHaveSolution(hasilOBEMatriks)) {
             System.out.println("SPL tidak ada solusi");
@@ -78,7 +77,7 @@ public class SPLMatriks {
       }
 
     /* Untuk mereduksi elemen-elemen matrix sehingga terbentuk matrix segitiga atas
-     *  Cara penggunaan SPL.reduksiOBE(isiMatrix)
+     *  Cara penggunaan SPLMatriks.reduksiOBE(isiMatrix)
      */
     public static Matriks reduksiOBE(Matriks matriks) {
         int len1D = matriks.getRow();
@@ -116,7 +115,6 @@ public class SPLMatriks {
                     }
                 }
             }
-            printMatrix2d(matriks);
         }
         return matriks;
     }
@@ -192,15 +190,15 @@ public class SPLMatriks {
     }
 
     /* Helper function untuk menukar baris di dalam matriks jika pivot nya = 0 */
-    public static void tukarBaris(Matriks matriksClass, int rowX, int rowY) {
-        int len1D = matriksClass.getRow();
-        int len2D = matriksClass.getCol();
+    public static void tukarBaris(Matriks matriks, int rowX, int rowY) {
+        int len1D = matriks.getRow();
+        int len2D = matriks.getCol();
 
         if (rowX != len1D-1) {
             for (int k=0; k<len2D; k++) {
-                double temp = matriksClass.getElement(rowX, k);
-                matriksClass.setElement(rowX, k, matriksClass.getElement(rowY, k));
-                matriksClass.setElement(rowY, k, temp);
+                double temp = matriks.getElement(rowX, k);
+                matriks.setElement(rowX, k, matriks.getElement(rowY, k));
+                matriks.setElement(rowY, k, temp);
             }
         }
 
