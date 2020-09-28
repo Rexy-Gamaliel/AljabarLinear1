@@ -199,14 +199,20 @@ public class Main {
                 System.out.println(matriks);
             }
 
+            double determinan = 0;
             if (pil == 1) {
-                double determinan = SPLMatriks.Determinan(matriks);
+                determinan = SPLMatriks.Determinan(matriks);
                 System.out.println("Nilai determinan = " + determinan);
             } else if (pil == 2) {
-                double determinan = kofaktor.cofactor(matriks);
+                determinan = kofaktor.cofactor(matriks);
                 System.out.println("Nilai determinan = " + determinan);
             }
 
+            // bagian save file
+            WriteFile.DelFileExist();
+            WriteFile.SaveFile("Nilai determinan matriks Anda adalah :");
+            WriteFile.SaveFile(Double.toString(determinan));
+            WriteFile.SaveSuccess();
 
 
         } else if (menu == 3) { //invers
@@ -229,7 +235,6 @@ public class Main {
                 matriks = SPLinvers.inverseMatriks(matriks);
                 System.out.println(matriks);
             }
-
 
 
         } else if (menu == 4) {
@@ -257,7 +262,6 @@ public class Main {
             WriteFile.SaveFile("Hasil taksiran P(x) adalah");
             WriteFile.SaveFile(x);
             WriteFile.SaveSuccess();
-
 
 
         } else if (menu == 5) {
