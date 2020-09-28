@@ -50,13 +50,49 @@ public class Matriks {
         return matrixString.toString();
     }
 
-    public void swapCol(int col1, int col2) {
-        int i;
-        for (i = 0; i < row; i++) {
-            double temp = M[i][col1];
-            double b = M[i][col2];
-            M[i][col1] = b;
-            M[i][col2] = temp;
+    public static Matriks TransposeMatriks(Matriks MIn) {
+        /** Menerima matriks MIn berukuran B x K
+         * Mengembalikan matriks MOut berukuran K x B dengan MOut[i][j] == MIn[j][i]
+         */
+        int B = MIn.getRow();
+        int K = MIn.getCol();
+        double[][] hasilTranspose = new double[B][K];
+
+        for (int i = 0; i < B; i++) {
+            for (int j = 0; j < K; j++) {
+                hasilTranspose[j][i] = MIn.getElement(i, j);
+            }
         }
+
+        Matriks MOut = new Matriks(K, B, hasilTranspose);
+
+        return MOut;
+    }
+
+
+    public static Matriks KaliMatriks(Matriks M1, Matriks M2) {
+        /* Menghasilkan hasil kali matriks M1 berukuran a x b dan M2 berukuran b x c */
+        /* Prekondisi: ukuran kolom M1 == ukuran barus M2 */
+        int a = M1.getRow();
+        int b = M1.getCol(); //= M2.getRow()
+        int c = M2.getCol();
+        Matriks MKali;
+        double[][] hasilKali = new double[a][c];
+
+        int i, j, k;
+        double temp;
+
+        for (i = 0; i < a; i++) {
+            for (j = 0; j < c; j++) {
+                temp = 0;
+                for (k = 0; k < b; k++) {
+                    temp += M1.getElement(i, k) * M2.getElement(k, j);
+                }
+                hasilKali[i][j] = temp;
+            }
+        }
+
+        MKali = new Matriks(a, c, hasilKali);
+        return MKali;
     }
 }
