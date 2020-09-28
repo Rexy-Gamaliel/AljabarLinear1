@@ -161,24 +161,53 @@ public class Main {
             }
 
         } else if (menu == 2) {
-            // Determinan
-            jenisinput = JenisInput();
-            if (jenisinput == 1) {
-                matriks = input.readFile();
-            } else {
-                System.out.print("Masukkan ukuran matriks[n][n] n: ");
-                int n = scanner.nextInt();
-                matriks = Matriks.createMatriks(n, n);
-                input.DetRun(matriks);
-                System.out.println("Matriks : ");
-                System.out.println(matriks);
+            System.out.println("1. Determinan Reduksi OBE ");
+            System.out.println("2. Determinan Kofaktor ");
+            System.out.print("Pilih menu: ");
+            int pil = scanner.nextInt();
+
+            while (pil > 2 || pil < 1) {
+                System.out.println("Inputan Salah. Silahkan masukkam inputan lagi");
+                System.out.println();
+                System.out.println("1. Determinan Reduksi OBE ");
+                System.out.println("2. Determinan Kofaktor ");
+                System.out.print("Pilih menu: ");
+                pil = scanner.nextInt();
             }
-            clearScreen();
-            if (matriks.getRow() == matriks.getCol()) {
+
+            if (pil == 1) {
+                // Determinan
+                jenisinput = JenisInput();
+                if (jenisinput == 1) {
+                    matriks = input.readFile();
+                } else {
+                    System.out.print("Masukkan ukuran matriks[n][n] n: ");
+                    int n = scanner.nextInt();
+                    matriks = Matriks.createMatriks(n, n);
+                    input.DetRun(matriks);
+                    System.out.println("Matriks : ");
+                    System.out.println(matriks);
+                }
+
                 double determinan = SPLMatriks.Determinan(matriks);
                 System.out.println("Nilai determinan = " + determinan);
+            } else if (pil == 2) {
+                jenisinput = JenisInput();
+                if (jenisinput == 1) {
+                    matriks = input.readFile();
+                } else {
+                    System.out.print("Masukkan ukuran matriks[n][n] n: ");
+                    int n = scanner.nextInt();
+                    matriks = Matriks.createMatriks(n, n);
+                    input.DetRun(matriks);
+                    System.out.println("Matriks : ");
+                    System.out.println(matriks);
+                }
+
+                double determinan = kofaktor.cofactor(matriks);
+                System.out.println("Nilai determinan = " + determinan);
             } else {
-                System.out.println("Matriks harus berukuran N x N");
+                System.out.println("Masukkan salah");
             }
         } else if (menu == 3) { //invers
             jenisinput = JenisInput();
