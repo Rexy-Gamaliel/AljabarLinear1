@@ -252,7 +252,9 @@ public class Main {
         } else if (menu == 5) {
             // regresi linear
         } else {
-            // keluar
+            System.out.println();
+            System.out.println("Terima kasih telah menggunakan progam kami");
+            System.out.println("============ Semoga Bermanfaat ===========");
         }
 
     }
