@@ -28,19 +28,19 @@ public class SPLinvers {
         koefMatriks = invers.inverseMatriks(koefMatriks);
 
         Matriks solutionMatriks = Matriks.createMatriks(matriks.getRow(), 1);
-        solutionMatriks = regresi.KaliMatriks(koefMatriks, hasil);
+        solutionMatriks = Matriks.KaliMatriks(koefMatriks, hasil);
         return solutionMatriks;
     }
 
 
-    public static void InverseSolution(Matriks matriks){
+    public static void InverseSolution(Matriks matriks) {
         // menerima matriks hasil dari fungsi SPLInvers
         // menampilkan output solusi
         int i;
         System.out.println("Solusi dari Sistem Persamaan linear tersebut adalah : ");
-        for(i=0; i< matriks.getRow(); i++){
+        for (i = 0; i < matriks.getRow(); i++) {
             System.out.print("X" + i + " = ");
-            System.out.print(matriks.getElement(i,0));
+            System.out.print(matriks.getElement(i, 0));
             System.out.println();
         }
     }
