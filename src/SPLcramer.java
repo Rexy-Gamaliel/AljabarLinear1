@@ -1,5 +1,5 @@
 public class SPLcramer {
-    public void Solusi(Matriks matriks) {
+    public static void Solusi(Matriks matriks) {
         //Menampilkan solusi Xn
 
         // cek matriks utama apakah 0
@@ -13,14 +13,20 @@ public class SPLcramer {
             System.out.println("Solusi unik : ");
             double detX;
             double X;
+            // clean file sebelum create
+            WriteFile.DelFileExist();
             for (idxVar = 0; idxVar < matriks.getCol() - 1; idxVar++) {
                 detX = cramer.Determinan(matriks, idxVar);
                 System.out.print("X" + (idxVar + 1) + " = ");
                 X = detX / detUtama;
                 System.out.format("%.2f", X);
                 System.out.println();
-                //  System.out.println(detX / detUtama);
+
+                String var = "X" + idxVar + " =";
+                WriteFile.SaveFile(var);
+                WriteFile.SaveFile(Double.toString(X));
             }
+            WriteFile.SaveSuccess();
         }
     }
 }

@@ -128,6 +128,7 @@ public class Main {
         int jenisinput;
         int menu = Menu();
 
+
         if (menu == 1) {
             int spl = SPLMenu();
             clearScreen();
@@ -150,7 +151,7 @@ public class Main {
              * Saran: bikin variabel tipe Matriks buat nyimpen hasilnya (biar bisa di-save)
              *        bikin juga prosedur buat nge print hasilnya itu
              * (Liat contoh yg metode balikan)
-            */
+             */
             Matriks HasilSPL = new Matriks(matriks.getRow(), 1, new double[matriks.getRow()][1]);
             //matriks sudah terisi
             if (spl == 1) {
@@ -168,7 +169,10 @@ public class Main {
                 SPLcramer.Solusi(matriks);
             }
 
+
         } else if (menu == 2) {
+            // determinan
+
             System.out.println("1. Determinan Reduksi OBE ");
             System.out.println("2. Determinan Kofaktor ");
             System.out.print("Pilih menu: ");
@@ -183,40 +187,28 @@ public class Main {
                 pil = scanner.nextInt();
             }
 
-            if (pil == 1) {
-                // Determinan
-                jenisinput = JenisInput();
-                if (jenisinput == 1) {
-                    matriks = input.readFile();
-                } else {
-                    System.out.print("Masukkan ukuran matriks[n][n] n: ");
-                    int n = scanner.nextInt();
-                    matriks = Matriks.createMatriks(n, n);
-                    input.DetRun(matriks);
-                    System.out.println("Matriks : ");
-                    System.out.println(matriks);
-                }
+            jenisinput = JenisInput();
+            if (jenisinput == 1) {
+                matriks = input.readFile();
+            } else {
+                System.out.print("Masukkan ukuran matriks[n][n] n: ");
+                int n = scanner.nextInt();
+                matriks = Matriks.createMatriks(n, n);
+                input.DetRun(matriks);
+                System.out.println("Matriks : ");
+                System.out.println(matriks);
+            }
 
+            if (pil == 1) {
                 double determinan = SPLMatriks.Determinan(matriks);
                 System.out.println("Nilai determinan = " + determinan);
             } else if (pil == 2) {
-                jenisinput = JenisInput();
-                if (jenisinput == 1) {
-                    matriks = input.readFile();
-                } else {
-                    System.out.print("Masukkan ukuran matriks[n][n] n: ");
-                    int n = scanner.nextInt();
-                    matriks = Matriks.createMatriks(n, n);
-                    input.DetRun(matriks);
-                    System.out.println("Matriks : ");
-                    System.out.println(matriks);
-                }
-
                 double determinan = kofaktor.cofactor(matriks);
                 System.out.println("Nilai determinan = " + determinan);
-            } else {
-                System.out.println("Masukkan salah");
             }
+
+
+
         } else if (menu == 3) { //invers
             jenisinput = JenisInput();
             if (jenisinput == 1) {
@@ -238,9 +230,10 @@ public class Main {
                 System.out.println(matriks);
             }
 
+
+
         } else if (menu == 4) {
             // interpolasi
-
             jenisinput = JenisInput();
             if (jenisinput == 1) {
                 matriks = input.readFile();
@@ -257,6 +250,16 @@ public class Main {
             double result = interpolasi.HasilTaksiran(matriks, X);
             System.out.print("Hasil taksiran P(x), untuk x = " + X + " adalah ");
             System.out.format("%.4f", result);
+            System.out.println();
+
+            String x = Double.toString(result);
+            WriteFile.DelFileExist();
+            WriteFile.SaveFile("Hasil taksiran P(x) adalah");
+            WriteFile.SaveFile(x);
+            WriteFile.SaveSuccess();
+
+
+
         } else if (menu == 5) {
             // regresi linear
         } else {
