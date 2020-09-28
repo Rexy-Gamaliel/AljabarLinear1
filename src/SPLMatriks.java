@@ -288,6 +288,7 @@ public class SPLMatriks {
             for (int k=0; k<len2D; k++) {
                 double temp = matriksClass.getElement(rowX, k);
                 matriksClass.setElement(rowX, k, matriksClass.getElement(rowY, k));
+                matriksClass.setElement(rowY, k, temp);
             }
         }
 
