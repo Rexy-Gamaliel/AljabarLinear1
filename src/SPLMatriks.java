@@ -6,9 +6,21 @@ public class SPLMatriks {
 
     /* Buat mencari SPL lewat eliminasi Gauss dengan OBE
      * Cara penggunaan tinggal panggil SPL.eliminasiGauss(isiMatrix) */
-    public static void eliminasiGauss(Matriks matriksClass) {
-        int gauss = 0;
-        hasilGauss(matriksClass, gauss);
+    public static void eliminasiGauss(Matriks matriks) {
+        Matriks hasilOBEMatriks = reduksiOBE(matriks);
+        printMatrix2d(matriks);
+
+        if (isNotHaveSolution(hasilOBEMatriks)) {
+            System.out.println("SPL tidak ada solusi");
+        } else if (isParametrik(hasilOBEMatriks) != -1) {
+            int row = isParametrik(hasilOBEMatriks);
+            printParametrik(matriks, row);
+        } else {
+            double[] coefficient = SPLMatriks.getCoefficient(matriks);
+            double[] hasil = subtitusiMundur(matriks, coefficient);
+
+            printHasil(hasil);
+        }
     }
 
     /* Buat mencari SPL lewat eliminasi Gauss-Jordan dengan OBE tereduksi
@@ -17,95 +29,6 @@ public class SPLMatriks {
     public static void eliminasiGaussJordan(Matriks matriksClass) {
         int gaussJordan = 1;
         hasilGauss(matriksClass, gaussJordan);
-    }
-
-    public static double[] getCoefficient(Matriks matriksClass) {
-        int len1D = matriksClass.getRow();
-        int len2D = matriksClass.getCol();
-        double[] coefficient = new double[len1D];
-
-        for (int i=0; i<len1D; i++) {
-            coefficient[i] = matriksClass.getElement(i, len2D-1);
-        }
-
-        return coefficient;
-    }
-
-    /* Helper function untuk menentukan apakah SPL mempunyai solusi tunggal, banyak
-       atau bahkan tidak ada solusinya lewat elminasiGauss dan eliminasiGaussJordan
-     */
-    public static void hasilGauss(Matriks matriksClass, int status) {
-        int len1D = matriksClass.getRow();
-        int len2D = matriksClass.getCol();
-        double[] coefficient = new double[len1D];
-        double[] hasil;
-        int rowParametrik = 9999;
-        boolean isParametrik = true;
-        boolean notHaveSolution = false;
-
-        reduksiOBE(matriksClass);
-
-        for (int i=len1D-1; i>=0; i--) {
-            for (int j=len2D-1; j>=0; j--) {
-                if (matriksClass.getElement(i, j) != 0) {
-                    isParametrik = false;
-                    break;
-                }
-            }
-
-            if (isParametrik) {
-                rowParametrik = i;
-                break;
-            } else {
-                double lastVariable = matriksClass.getElement(i, len2D-1);
-                if (matriksClass.getElement(i, i) == 0 && lastVariable !=0) {
-                    notHaveSolution = true;
-                }
-            }
-        }
-
-        if (isParametrik) {
-            printParametrik(matriksClass, rowParametrik);
-        } else {
-            if (notHaveSolution) {
-                System.out.println("SPL tidak memiliki solusi");
-            } else {
-                if (status == 0) {
-                    reduksiOBE(matriksClass);
-                    coefficient = SPLMatriks.getCoefficient(matriksClass);
-                    hasil = subtitusiMundur(matriksClass, coefficient);
-                } else {
-                    reduksiOBEJordan(matriksClass);
-                    coefficient = SPLMatriks.getCoefficient(matriksClass);
-                    hasil = subtitusiMundurJordan(matriksClass, coefficient);
-                }
-//                printMatrix2d(matrix);
-//                printMatrix1d(hasil);
-                printHasil(hasil);
-            }
-        }
-    }
-
-    /* Untuk menghitung determinan matriks ukuran N x N dengan menggunakan OBE
-     *  Cara penggunaan tinggal pangil SPL.Determinan(isiMatrix)
-     */
-    public static double Determinan(Matriks matriksClass) {
-        reduksiOBE(matriksClass);
-
-        int len1D = matriksClass.getRow();
-        int len2D = matriksClass.getCol();
-        double determinan = 1;
-
-        if (len1D == len2D) {
-            for (int i=0; i<len1D; i++) {
-                determinan *= matriksClass.getElement(i, i);
-            }
-        } else {
-            System.out.println("Ukuran matriks harus N x N");
-        }
-
-        determinan *= Math.pow(-1, peubah);
-        return determinan;
     }
 
     /* Mengembalikan matriks inverse dari matriks input */
@@ -157,33 +80,45 @@ public class SPLMatriks {
     /* Untuk mereduksi elemen-elemen matrix sehingga terbentuk matrix segitiga atas
      *  Cara penggunaan SPL.reduksiOBE(isiMatrix)
      */
-    public static Matriks reduksiOBE(Matriks matriksClass) {
-        int len1D = matriksClass.getRow();
-        int len2D = matriksClass.getCol();
+    public static Matriks reduksiOBE(Matriks matriks) {
+        int len1D = matriks.getRow();
+        int len2D = matriks.getCol();
+        int geser = 0;
 
         for (int i = 0; i < len1D; i++) {
 
-            tukarZeroPivot(matriksClass, i);
-            double pivot = matriksClass.getElement(i, i);
+            double pivot = matriks.getElement(i, i);
+            double factor = 0;
+            if (pivot == 0) {
+                if (scanUnderPivot(matriks, i) == -1) {
+                    geser = 1;
+                } else {
+                    tukarBaris(matriks, i, scanUnderPivot(matriks, i));
+                    geser = 0;
+                }
+            } else {
+                geser = 0;
+            }
 
             for (int k = i + 1; k < len1D; k++) {
-                double factor = matriksClass.getElement(k, i) / pivot;
+                pivot = matriks.getElement(i, i+geser);
+                factor = matriks.getElement(k, i+geser) / pivot;
 
-                if (matriksClass.getElement(k, i) != 0) {
+                if (matriks.getElement(k, i+geser) != 0) {
                     for (int j = 0; j < len2D; j++) {
-//                        String hasilStr = new DecimalFormat("##.##########").format(matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
-                        matriksClass.setElement(k, j, matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
+                        if (geser == 1) {
+                            if (j != len2D-1) {
+                                matriks.setElement(k, j+geser, matriks.getElement(k, j+geser) - matriks.getElement(i, j+geser)*factor);
+                            }
+                        } else {
+                            matriks.setElement(k, j, matriks.getElement(k, j) - matriks.getElement(i, j)*factor);
+                        }
                     }
-//                    System.out.print(factor);
-//                    System.out.print(", ");
-//                    System.out.println();
                 }
-//                printMatrix2d(matriksClass);
             }
+            printMatrix2d(matriks);
         }
-
-        //printMatrix2d(matrix);
-        return matriksClass;
+        return matriks;
     }
 
     /* Untuk mereduksi elemen-elemen matrix sehingga terbentuk matrix eselon
@@ -218,29 +153,6 @@ public class SPLMatriks {
 
 //        printMatrix2d(matrix);
         return matriksClass;
-    }
-
-    /* Helper function untuk mencari pivot di dalam matriks yang != 0
-     *  setelah itu tukar baris yang mempunyai pivot 0 dengan baris dibawahnya
-     *  sampai pivotnya != 0
-     *  Cara penggunaan SPL.tukarZeroPivot(isiMatrix, index)
-     *  index = index yang pivotnya 0
-     */
-    public static void tukarZeroPivot(Matriks matriksClass, int idx) {
-        int len1D = matriksClass.getRow();
-        double pivot = matriksClass.getElement(idx, idx);
-        int foundIdxPivot = 0;
-
-        for (int i=idx+1; i<len1D; i++) {
-            if (matriksClass.getElement(i, idx) != 0) {
-                foundIdxPivot = i;
-                break;
-            }
-        }
-
-        if (pivot == 0) {
-            tukarBaris(matriksClass, idx, foundIdxPivot);
-        }
     }
 
     /* Helper function untuk mendapatkan variabel dari SPL */
@@ -293,6 +205,68 @@ public class SPLMatriks {
         }
 
         peubah += 1;
+    }
+
+    public static int isParametrik(Matriks matriks) {
+        int len1D = matriks.getRow();
+        int len2D = matriks.getCol();
+
+        int rowParametrik = -1;
+        int total = 0;
+
+        for (int i=len1D-1; i>=0; i--) {
+            for (int j=len2D-1; j>=0; j--) {
+                total += Math.abs(matriks.getElement(i, j));
+            }
+
+            if (total == 0) {
+                rowParametrik = i;
+                break;
+            }
+        }
+
+        return rowParametrik;
+    }
+
+    public static boolean isNotHaveSolution(Matriks matriks) {
+        int len1D = matriks.getRow();
+        int len2D = matriks.getCol();
+
+        return (matriks.getElement(len1D-1, len2D-2) == 0) && (matriks.getElement(len1D-1, len2D-1) == 0);
+    }
+
+    public static double[] getCoefficient(Matriks matriks) {
+        int len1D = matriks.getRow();
+        int len2D = matriks.getCol();
+        double[] coefficient = new double[len1D];
+
+        for (int i=0; i<len1D; i++) {
+            coefficient[i] = matriks.getElement(i, len2D-1);
+        }
+
+        return coefficient;
+    }
+
+    /* Untuk menghitung determinan matriks ukuran N x N dengan menggunakan OBE
+     *  Cara penggunaan tinggal pangil SPL.Determinan(isiMatrix)
+     */
+    public static double Determinan(Matriks matriks) {
+        reduksiOBE(matriks);
+
+        int len1D = matriks.getRow();
+        int len2D = matriks.getCol();
+        double determinan = 1;
+
+        if (len1D == len2D) {
+            for (int i=0; i<len1D; i++) {
+                determinan *= matriks.getElement(i, i);
+            }
+        } else {
+            System.out.println("Ukuran matriks harus N x N");
+        }
+
+        determinan *= Math.pow(-1, peubah);
+        return determinan;
     }
 
     /* Helper function untuk nge-print matriks 2D */
