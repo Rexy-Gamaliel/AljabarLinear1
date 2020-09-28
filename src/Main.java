@@ -226,7 +226,7 @@ public class Main {
                 System.out.println("Matriks tidak memiliki balikan");
             } else {
                 System.out.println("Matriks balikan : ");
-                matriks = invers.inverseMatriks(matriks);
+                matriks = SPLinvers.inverseMatriks(matriks);
                 System.out.println(matriks);
             }
 
@@ -256,6 +256,5 @@ public class Main {
             System.out.println("Terima kasih telah menggunakan progam kami");
             System.out.println("============ Semoga Bermanfaat ===========");
         }
-
     }
 }

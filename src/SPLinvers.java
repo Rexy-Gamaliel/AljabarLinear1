@@ -116,10 +116,10 @@ public class SPLinvers {
     }
   }
 
-  /* Mengalikan 2 matriks */
+  /* Mengalikan 2 matriks
   public static Matriks KaliMatriks (Matriks M1, Matriks M2) {
-    /* Menghasilkan hasil kali matriks M1 berukuran a x b dan M2 berukuran b x c */
-    /* Prekondisi: ukuran kolom M1 == ukuran barus M2 */
+     Menghasilkan hasil kali matriks M1 berukuran a x b dan M2 berukuran b x c
+     Prekondisi: ukuran kolom M1 == ukuran barus M2
     int a = M1.getRow();
     int b = M1.getCol(); //= M2.getRow()
     int c = M2.getCol();
@@ -142,6 +142,8 @@ public class SPLinvers {
     MKali = new Matriks(a, c, hasilKali);
     return MKali;
   }
+  */
+
 
   /* Menampilkan solusi SPL */
   public static void solusiSPLInverse(Matriks MAugmented) {
@@ -172,7 +174,7 @@ public class SPLinvers {
       Matriks MatriksX = new Matriks(A.getCol(), 1, new double[A.getCol()][1]);
       //Matriks AInvers = inverseMatriks(A);
       
-      MatriksX = KaliMatriks(AInvers, B);
+      MatriksX = Matriks.KaliMatriks(AInvers, B);
       
       System.out.println("Solusi unik:");
       for (int i=0; i<MatriksX.getCol(); i++) {
