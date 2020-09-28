@@ -28,8 +28,8 @@ public class kofaktor {
             int x, y;
             for (i = firstrowIdx; i <= lastrowIdx; i++) {
                 x = firstrowIdx;
-                y = lastrowIdx;
-
+                y = firstrowIdx;
+                // membuat kofaktor
                 for (row = firstrowIdx; row <= lastrowIdx; row++) {
                     for (col = firstrowIdx; col <= lastrowIdx; col++) {
                         /* mengisi subM dengan elemen matriks yang indeks != 'pivot' perkalian kofaktor */
@@ -43,11 +43,11 @@ public class kofaktor {
                         }
                     }
                 }
+                // perkalian determinan
+                determinant += sign * matriks.getElement(0, i) * cofactor(tempMatriks);
+                sign = -1 * sign;
             }
-            // perkalian determinan
-            determinant += sign * matriks.getElement(0, i) * cofactor(tempMatriks);
-            sign = -1 * sign;
+            return determinant;
         }
-        return determinant;
     }
 }
