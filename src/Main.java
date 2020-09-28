@@ -146,6 +146,12 @@ public class Main {
                 input.SPLrun(matriks);
             }
 
+            /** >>> Nambahin variabel buat nampung hasil
+             * Saran: bikin variabel tipe Matriks buat nyimpen hasilnya (biar bisa di-save)
+             *        bikin juga prosedur buat nge print hasilnya itu
+             * (Liat contoh yg metode balikan)
+            */
+            Matriks HasilSPL = new Matriks(matriks.getRow(), 1, new double[matriks.getRow()][1]);
             //matriks sudah terisi
             if (spl == 1) {
                 // Eliminasi Gauss
@@ -155,6 +161,8 @@ public class Main {
                 SPLMatriks.eliminasiGaussJordan(matriks);
             } else if (spl == 3) {
                 // metode matriks balikan
+                HasilSPL = SPLinvers.solusiSPLInverse(matriks);
+                SPLinvers.printSolusiSPLInvers(HasilSPL);
             } else if (spl == 4) {
                 // metode cramer
                 SPLcramer.Solusi(matriks);

@@ -146,13 +146,13 @@ public class SPLinvers {
 
 
   /* Menampilkan solusi SPL */
-  public static void solusiSPLInverse(Matriks MAugmented) {
+  public static Matriks solusiSPLInverse(Matriks MAugmented) {
     /**Menentukan solusi SPL menggunakan metode invers
      * Diberikan matriks Ax = B, 
      * maka x = A^(-1) B
      */
-    /**I.S.: MAugmented berukuran n x m terdefinisi dan merupakan input user
-     * F.S.: menampilkan elemen2 matriks x, yakni solusi dari SPL
+    /**MAugmented berukuran n x m terdefinisi dan merupakan input user
+     * Lalu fungsi mengembalikan matriks x berukuran n x 1
      * Proses: memecah matriks MAugmented menjadi hanya matriks X,
      *  mencari inversnya, untuk invers yg valid dihitung x = A^(-1) B
      */
@@ -166,16 +166,19 @@ public class SPLinvers {
 
     Matriks AInvers = inverseMatriks(A);
 
+    Matriks MatriksX = new Matriks(A.getRow(), 1, new double[A.getRow()][1]);
+    
+    MatriksX = Matriks.KaliMatriks(AInvers, B);
+
+    return MatriksX;
+  }
+
+  public static void printSolusiSPLInvers (Matriks MatriksX) {
     if (!(getIsInversValid())) {
       System.out.println("Matriks tidak memiliki invers dan tidak dapat dicari hasil SPL-nya menggunakan metode ini.");
     }
     else {
-      // dijamin akan memberikan hasil unik
-      Matriks MatriksX = new Matriks(A.getCol(), 1, new double[A.getCol()][1]);
-      //Matriks AInvers = inverseMatriks(A);
-      
-      MatriksX = Matriks.KaliMatriks(AInvers, B);
-      
+      // memberikan hasil unik      
       System.out.println("Solusi unik:");
       for (int i=0; i<MatriksX.getCol(); i++) {
         System.out.print("x_" + (i+1) + " = ");
