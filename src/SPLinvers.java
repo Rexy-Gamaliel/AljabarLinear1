@@ -130,6 +130,7 @@ public class SPLinvers {
             System.out.println("Matriks tidak memiliki invers dan tidak dapat dicari hasil SPL-nya menggunakan metode ini.");
         } else {
             // memberikan hasil unik
+            WriteFile.DelFileExist();
             System.out.println("Solusi unik:");
             double Xi;
             String stringXi;
