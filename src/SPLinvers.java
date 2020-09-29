@@ -116,35 +116,6 @@ public class SPLinvers {
     }
   }
 
-  /* Mengalikan 2 matriks
-  public static Matriks KaliMatriks (Matriks M1, Matriks M2) {
-     Menghasilkan hasil kali matriks M1 berukuran a x b dan M2 berukuran b x c
-     Prekondisi: ukuran kolom M1 == ukuran barus M2
-    int a = M1.getRow();
-    int b = M1.getCol(); //= M2.getRow()
-    int c = M2.getCol();
-    Matriks MKali;
-    double[][] hasilKali = new double[a][c];
-
-    int i, j, k;
-    double temp;
-
-    for (i=0; i<a; i++) {
-      for (j=0; j<c; j++) {
-        temp = 0;
-        for (k=0; k<b; k++) {
-          temp += M1.getElement(i, k) * M2.getElement(k, j);
-        }
-        hasilKali[i][j] = temp;
-      }
-    }
-
-    MKali = new Matriks(a, c, hasilKali);
-    return MKali;
-  }
-  */
-
-
   /* Menampilkan solusi SPL */
   public static Matriks solusiSPLInverse(Matriks MAugmented) {
     /**Menentukan solusi SPL menggunakan metode invers
