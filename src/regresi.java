@@ -23,7 +23,7 @@ public class regresi {
 
         Matriks XTranspose = Matriks.TransposeMatriks(X);
         Matriks tempMatriks = Matriks.KaliMatriks(XTranspose, X);
-        tempMatriks = invers.inverseMatriks(tempMatriks);
+        tempMatriks = SPLinvers.inverseMatriks(tempMatriks);
 
         Matriks b = Matriks.KaliMatriks(tempMatriks, XTranspose);
         b = Matriks.KaliMatriks(b, Y);
