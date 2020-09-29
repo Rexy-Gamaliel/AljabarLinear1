@@ -25,6 +25,7 @@ public class SPLcramer {
                 String var = "X" + idxVar + " =";
                 WriteFile.SaveFile(var);
                 WriteFile.SaveFile(Double.toString(X));
+                WriteFile.addNewline();
             }
             WriteFile.SaveSuccess();
         }
