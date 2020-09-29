@@ -27,7 +27,7 @@ public class SPLinvers {
         for (int i = 0; i < n; i++) {
             MKanan.setElement(i, 0, MKiri.getElement(i, m - 1));
         }
-        MKiri.setCol(m-1);
+        MKiri.setCol(m - 1);
         // Menampung isi matriks X pada MTemp untuk kemudian dipindahkan ke MKiri
         /*
         Matriks MTemp = new Matriks(n, m - 1, new double[n][m - 1]);
@@ -108,34 +108,46 @@ public class SPLinvers {
         // Melakukan spliting terhadap MAugmented
         Matriks B = new Matriks(n, 1, new double[n][1]);
         Matriks A = new Matriks(n, m, new double[n][m]);
-        
-        for (int i=0; i<n; i++) {
-          for (int j=0; j<m; j++) {
-            A.setElement(i, j, MAugmented.getElement(i, j));
-          }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                A.setElement(i, j, MAugmented.getElement(i, j));
+            }
         }
         SplitMatriks(A, B);
 
+        // buat matriks baru penampung A untuk di cek determinannya
+        Matriks matriksTemp = Matriks.createMatriks(A.getRow(), A.getCol());
+        for (int i = 0; i < matriksTemp.getRow(); i++) {
+            for (int j = 0; j < matriksTemp.getCol(); j++) {
+                matriksTemp.setElement(i, j, A.getElement(i, j));
+            }
+        }
+
+        if (kofaktor.cofactor(matriksTemp) == 0) {
+            // tidak memiliki determinan
+            setIsInversValid(false);
+        }
         Matriks AInvers = inverseMatriks(A);
 
         Matriks MatriksX = new Matriks(A.getRow(), 1, new double[A.getRow()][1]);
 
         MatriksX = Matriks.KaliMatriks(AInvers, B);
-
         return MatriksX;
     }
 
     public static void printSolusiSPLInvers(Matriks MatriksX) {
+        WriteFile.DelFileExist();
         if (!(getIsInversValid())) {
+            WriteFile.SaveFile("Matriks tidak memiliki invers dan tidak dapat dicari hasil SPL-nya menggunakan metode ini.");
             System.out.println("Matriks tidak memiliki invers dan tidak dapat dicari hasil SPL-nya menggunakan metode ini.");
         } else {
             // memberikan hasil unik
-            WriteFile.DelFileExist();
             System.out.println("Solusi unik:");
             double Xi;
             String stringXi;
             for (int i = 0; i < MatriksX.getRow(); i++) {
-              Xi = MatriksX.getElement(i,0);
+                Xi = MatriksX.getElement(i, 0);
                 System.out.print("x_" + (i + 1) + " = ");
                 System.out.format("%.4f", Xi);
                 System.out.println();
@@ -143,7 +155,7 @@ public class SPLinvers {
                 WriteFile.SaveFile(stringXi);
                 WriteFile.SaveFile(Double.toString(Xi));
             }
-            WriteFile.SaveSuccess();
         }
+        WriteFile.SaveSuccess();
     }
 }
