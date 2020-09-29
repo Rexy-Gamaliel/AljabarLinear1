@@ -120,8 +120,36 @@ public class InputMatrix {
             }
         }
     }
-
+    
     // input n peubah diluar
     // input k diluar
     // spl run regresi
+    public void regresiRun(Matriks matriks) {
+        /**Membentuk matriks augmented dengan format 
+         * x11 x12 x13 ... x1k y1
+         * x21 x22 x23 ... x2k y2
+         * ...
+         * xn1 xn2 xn3 ... xnk yn
+         * 
+         * I.S. matriks terdefinisi dengan ukuran n x k+1
+         * F.S. elemen2 matriks terisi sesuai format
+         */
+        Scanner scanner = new Scanner(System.in);
+        int i, j;
+        double valInput;
+        for (i = 0; i < matriks.getRow(); i++) {
+            for (j = 0; j < matriks.getCol(); j++) {
+                if (j == matriks.getCol()-1) {     // kolom terakhir
+                    System.out.println("Masukkan nilai y_" + (i+1) + " : ");
+                }
+                else {                                  // kolom X
+                    System.out.println("Masukkan nilai x_" + (i+1) + "," + (j+1) + " : ");
+                }
+                valInput = scanner.nextDouble();
+                matriks.setElement(i, j, valInput);
+            }
+        }
+    }
+        
+    }
 }

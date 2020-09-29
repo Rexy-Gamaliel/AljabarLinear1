@@ -287,8 +287,15 @@ public class Main {
             WriteFile.SaveSuccess();
 
 
-        } else if (menu == 5) {
-            // regresi linear
+        } else if (menu == 5) { // regresi linear
+            /* Membuat matriks Augmented */
+            System.out.println("Masukkan nilai k (banyaknya variabel independen x), k = ");
+            int k = scanner.nextInt();
+            System.out.println("Masukkan nilai n (banyaknya persamaan), n = ");
+            int n = scanner.nextInt();
+            Matriks MAugmentedReg = Matriks.createMatriks(n, k+1);
+            input.regresiRun(MAugmentedReg);
+            //MAugmented berukura
         } else {
             System.out.println();
             System.out.println("Terima kasih telah menggunakan progam kami");
