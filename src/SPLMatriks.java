@@ -16,7 +16,7 @@ public class SPLMatriks {
             printParametrik(matriks, row);
         } else {
             double[] coefficient = SPLMatriks.getCoefficient(matriks);
-            double[] hasil = subtitusiMundur(matriks, coefficient);
+            double[] hasil = backSubtituion(matriks, coefficient);
 
             printHasil(hasil);
         }
@@ -25,9 +25,20 @@ public class SPLMatriks {
     /* Buat mencari SPL lewat eliminasi Gauss-Jordan dengan OBE tereduksi
      * Cara penggunaan tinggal panggil SPL.eliminasiGaussJordan(isiMatrix)
      */
-    public static void eliminasiGaussJordan(Matriks matriksClass) {
-        int gaussJordan = 1;
-        hasilGauss(matriksClass, gaussJordan);
+    public static void eliminasiGaussJordan(Matriks matriks) {
+        Matriks hasilOBEMatriks = reduksiOBEJordan(matriks);
+
+        if (isNotHaveSolution(hasilOBEMatriks)) {
+            System.out.println("SPL tidak ada solusi");
+        } else if (isParametrik(hasilOBEMatriks) != -1) {
+            int row = isParametrik(hasilOBEMatriks);
+            printParametrik(matriks, row);
+        } else {
+            double[] coefficient = SPLMatriks.getCoefficient(matriks);
+            double[] hasil = backSubtituion(matriks, coefficient);
+
+            printHasil(hasil);
+        }
     }
 
     /* Mengembalikan matriks inverse dari matriks input */
@@ -92,7 +103,7 @@ public class SPLMatriks {
                 if (scanUnderPivot(matriks, i) == -1) {
                     geser = 1;
                 } else {
-                    tukarBaris(matriks, i, scanUnderPivot(matriks, i));
+                    swapRow(matriks, i, scanUnderPivot(matriks, i));
                     geser = 0;
                 }
             } else {
@@ -122,75 +133,94 @@ public class SPLMatriks {
     /* Untuk mereduksi elemen-elemen matrix sehingga terbentuk matrix eselon
      *  Cara penggunaan SPL.reduksiOBEJordan(isiMatrix)
      */
-    public static Matriks reduksiOBEJordan(Matriks matriksClass) {
-        int len1D = matriksClass.getRow();
-        int len2D = matriksClass.getCol();
+    public static Matriks reduksiOBEJordan(Matriks matriks) {
+        int len1D = matriks.getRow();
+        int len2D = matriks.getCol();
+        int geser = 0;
 
-        for (int i = 1; i < len1D; i++) {
+        for (int i = 0; i < len1D; i++) {
+            double pivot = matriks.getElement(i, i);
 
-            //tukarZeroPivot(matrix, i);
-            double pivot = matriksClass.getElement(i, i);
-
-            for (int k = 0; k < i; k++) {
-                double factor = matriksClass.getElement(k, i) / pivot;
-
-                if (matriksClass.getElement(k, i) != 0) {
-                    for (int j = 0; j < len2D; j++) {
-//                        String hasilStr = new DecimalFormat("##.##").format(matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
-//                        matriksClass.setElement(k, j, Double.parseDouble(hasilStr));
-
-                        matriksClass.setElement(k, j, matriksClass.getElement(k, j) - matriksClass.getElement(i, j) * factor);
-                    }
-//                    System.out.print(factor);
-//                    System.out.print(", ");
-//                    System.out.println();
+            double factor = 0;
+            if (pivot == 0) {
+                if (scanUnderPivot(matriks, i) == -1) {
+                    pivot = matriks.getElement(i, i+1);
+                    geser = 1;
+                } else {
+                    swapRow(matriks, i, scanUnderPivot(matriks, i));
+                    pivot = matriks.getElement(i, i);
                 }
-//                printMatrix2d(matriksClass);
+            }
+
+            if (pivot != 1 && pivot !=0) {
+                for (int l=i; l<len2D; l++) {
+                    matriks.setElement(i, l, matriks.getElement(i, l) / pivot);
+                }
+            }
+
+            for (int k = 0; k < len1D; k++) {
+                if (pivot != 0 && k != i) {
+                    pivot = matriks.getElement(i, i+geser);
+                    factor = matriks.getElement(k, i+geser) / pivot;
+
+                    if (matriks.getElement(k, i+geser) != 0) {
+                        for (int j = 0; j < len2D; j++) {
+                            if (geser == 1) {
+                                if (j != len2D-1) {
+                                    matriks.setElement(k, j+geser, matriks.getElement(k, j+geser) - matriks.getElement(i, j+geser)*factor);
+                                }
+                            } else {
+                                matriks.setElement(k, j, matriks.getElement(k, j) - matriks.getElement(i, j)*factor);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return matriks;
+    }
+
+    /* Helper function untuk mencari pivot di dalam matriks yang != 0
+     *  setelah itu tukar baris yang mempunyai pivot 0 dengan baris dibawahnya
+     *  sampai pivotnya != 0
+     *  Cara penggunaan SPL.scanUnderPivot(isiMatrix, index)
+     *  index = index yang pivotnya 0
+     */
+    public static int scanUnderPivot(Matriks matriks, int idx) {
+        int len1D = matriks.getRow();
+        int foundIdxPivot = -1;
+
+        for (int i=idx+1; i<len1D; i++) {
+            if (matriks.getElement(i, idx) != 0) {
+                foundIdxPivot = i;
+                break;
             }
         }
 
-//        printMatrix2d(matrix);
-        return matriksClass;
+        return foundIdxPivot;
     }
 
     /* Helper function untuk mendapatkan variabel dari SPL */
-    public static double[] subtitusiMundur(Matriks matriksClass, double[] b) {
-        int len1D = matriksClass.getRow();
+    public static double[] backSubtituion(Matriks matriks, double[] b) {
+        int len1D = matriks.getRow();
 
         double[] hasil = new double[len1D];
-        hasil[len1D-1] = b[len1D-1]/matriksClass.getElement(len1D-1, len1D-1);
+        hasil[len1D-1] = b[len1D-1]/matriks.getElement(len1D-1, len1D-1);
 
         for (int i=len1D-2; i>=0; i--) {
             double sum = 0;
             for (int j=i+1; j<len1D; j++) {
-                sum += matriksClass.getElement(i, j)*hasil[j];
+                sum += matriks.getElement(i, j)*hasil[j];
             }
 
-            hasil[i]=(b[i]-sum)/matriksClass.getElement(i, i);
-        }
-
-        return hasil;
-    }
-
-    public static double[] subtitusiMundurJordan(Matriks matriksClass, double[] b) {
-        int len1D = matriksClass.getRow();
-        int len2D = matriksClass.getCol();
-        double[] hasil = new double[len1D];
-
-        for (int i=len1D-1; i>=0; i--) {
-            hasil[i] = b[i]/matriksClass.getElement(i, i);
-            for (int j=len2D; j>=0; j--) {
-                double temp = matriksClass.getElement(i,i)/matriksClass.getElement(i,i);
-                matriksClass.setElement(i, i, temp);
-            }
-            matriksClass.setElement(i, len2D-1, hasil[i]);
+            hasil[i]=(b[i]-sum)/matriks.getElement(i, i);
         }
 
         return hasil;
     }
 
     /* Helper function untuk menukar baris di dalam matriks jika pivot nya = 0 */
-    public static void tukarBaris(Matriks matriks, int rowX, int rowY) {
+    public static void swapRow(Matriks matriks, int rowX, int rowY) {
         int len1D = matriks.getRow();
         int len2D = matriks.getCol();
 
@@ -211,10 +241,21 @@ public class SPLMatriks {
 
         int rowParametrik = -1;
         int total = 0;
+        int totalNotZero = 0;
 
         for (int i=len1D-1; i>=0; i--) {
             for (int j=len2D-1; j>=0; j--) {
                 total += Math.abs(matriks.getElement(i, j));
+            }
+
+            for (int j=len2D-1; j>=0; j--) {
+                if (matriks.getElement(i, j) != 0 && j != len2D-1) {
+                    totalNotZero += 1;
+                }
+            }
+
+            if (totalNotZero > 1) {
+                rowParametrik = -2;
             }
 
             if (total == 0) {
@@ -229,8 +270,13 @@ public class SPLMatriks {
     public static boolean isNotHaveSolution(Matriks matriks) {
         int len1D = matriks.getRow();
         int len2D = matriks.getCol();
+        boolean isNotHaveSolution = false;
 
-        return (matriks.getElement(len1D-1, len2D-2) == 0) && (matriks.getElement(len1D-1, len2D-1) == 0);
+        if (isParametrik(matriks) == -1) {
+            isNotHaveSolution = (matriks.getElement(len1D-1, len2D-2) == 0);
+        }
+
+        return isNotHaveSolution;
     }
 
     public static double[] getCoefficient(Matriks matriks) {
@@ -268,15 +314,14 @@ public class SPLMatriks {
     }
 
     /* Helper function untuk nge-print matriks 2D */
-    public static void printMatrix2d(Matriks matriksClass) {
-        int len1D = matriksClass.getRow();
-        int len2D = matriksClass.getCol();
+    public static void printMatrix2d(Matriks matriks) {
+        int len1D = matriks.getRow();
+        int len2D = matriks.getCol();
 
         for (int i=0; i<len1D; i++) {
             System.out.print("[");
             for (int j = 0; j < len2D; j++) {
-//                String hasilStr = new DecimalFormat("##.##").format(matriksClass.getElement(i, j));
-                System.out.printf("%.7f", matriksClass.getElement(i, j));
+                System.out.printf("%.2f", matriks.getElement(i, j));
                 if (j!=len2D-1) {
                     System.out.print(", ");
                 }
@@ -303,27 +348,29 @@ public class SPLMatriks {
     }
 
     /* Helper function untuk nge-print matriks yang solusi SPL nya berbentuk parametrik */
-    public static void printParametrik(Matriks matriksClass, int rowParametrik) {
-        int len1D = matriksClass.getRow();
-        int len2D = matriksClass.getCol();
+    public static void printParametrik(Matriks matriks, int rowParametrik) {
+        int len1D = matriks.getRow();
+        int len2D = matriks.getCol();
 
         System.out.println("Solusi Parametrik: ");
         for (int i=0; i<len1D; i++) {
-            if (i != rowParametrik) {
-                for (int j=0; j<len2D-1; j++) {
-                    if (j != len2D-1) {
-                        if (matriksClass.getElement(i, j) != 0) {
-                            if (matriksClass.getElement(i, j) != 1) {
-                                System.out.printf("%.1fx%d + ", matriksClass.getElement(i, j), j+1);
-                            } else {
-                                System.out.printf("x%d ", j+1);
-                            }
-                        }
+            for (int j=0; j<len2D-1; j++) {
+                if (matriks.getElement(i, j) != 0) {
+                    System.out.printf("(%.2fx%d)", matriks.getElement(i, j), j+1);
+
+                    if (j != len2D-2) {
+                        System.out.print(" + ");
+                    } else {
+                        System.out.print("");
                     }
                 }
-                System.out.printf(" = %.1f", matriksClass.getElement(i, len2D-1));
-                System.out.println();;
             }
+
+            if (rowParametrik != i) {
+                System.out.printf(" = %.2f", matriks.getElement(i, len2D-1));
+            }
+
+            System.out.println();;
         }
     }
 
