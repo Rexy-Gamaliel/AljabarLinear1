@@ -9,6 +9,12 @@ public class SPLcramer {
         if (detUtama == 0) {
             System.out.println("Determinan utama 0");
             System.out.println("Solusi tidak unik, silakan gunakan metode lain");
+
+            WriteFile.DelFileExist();
+            WriteFile.SaveFile("Determinan utama 0");
+            WriteFile.addNewline();
+            WriteFile.SaveFile("Solusi tidak unik, silakan gunakan metode lain");
+            WriteFile.SaveSuccess();
         } else {
             System.out.println("Solusi unik : ");
             double detX;
