@@ -27,7 +27,9 @@ public class SPLinvers {
         for (int i = 0; i < n; i++) {
             MKanan.setElement(i, 0, MKiri.getElement(i, m - 1));
         }
+        MKiri.setCol(m-1);
         // Menampung isi matriks X pada MTemp untuk kemudian dipindahkan ke MKiri
+        /*
         Matriks MTemp = new Matriks(n, m - 1, new double[n][m - 1]);
         for (int i = 0; i < MTemp.getRow(); i++) {
             for (int j = 0; j < MTemp.getCol(); j++) {
@@ -35,6 +37,7 @@ public class SPLinvers {
             }
         }
         MKiri = MTemp;
+        */
     }
 
     /* Menghasilkan invers dari matriks */
@@ -100,11 +103,17 @@ public class SPLinvers {
          *  mencari inversnya, untuk invers yg valid dihitung x = A^(-1) B
          */
         int n = MAugmented.getRow();
-        //int m = MAugmented.getCol();
+        int m = MAugmented.getCol();
 
         // Melakukan spliting terhadap MAugmented
         Matriks B = new Matriks(n, 1, new double[n][1]);
-        Matriks A = MAugmented;
+        Matriks A = new Matriks(n, m, new double[n][m]);
+        
+        for (int i=0; i<n; i++) {
+          for (int j=0; j<m; j++) {
+            A.setElement(i, j, MAugmented.getElement(i, j));
+          }
+        }
         SplitMatriks(A, B);
 
         Matriks AInvers = inverseMatriks(A);
@@ -122,11 +131,18 @@ public class SPLinvers {
         } else {
             // memberikan hasil unik
             System.out.println("Solusi unik:");
-            for (int i = 0; i < MatriksX.getCol(); i++) {
+            double Xi;
+            String stringXi;
+            for (int i = 0; i < MatriksX.getRow(); i++) {
+              Xi = MatriksX.getElement(i,0);
                 System.out.print("x_" + (i + 1) + " = ");
-                System.out.format("%.4f", MatriksX.getElement(i, 0));
+                System.out.format("%.4f", Xi);
                 System.out.println();
+                stringXi = "x_" + i + " = ";
+                WriteFile.SaveFile(stringXi);
+                WriteFile.SaveFile(Double.toString(Xi));
             }
+            WriteFile.SaveSuccess();
         }
     }
 }
