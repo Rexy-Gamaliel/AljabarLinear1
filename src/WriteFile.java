@@ -1,7 +1,7 @@
 import java.io.*;
 
 public class WriteFile {
-    public static void SaveFile(String result){
+    public static void SaveFile(String result) {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter("result.txt", true));
@@ -20,16 +20,36 @@ public class WriteFile {
         }
     }
 
-    public static void DelFileExist (){
+    public static void DelFileExist() {
         // menghapus file sebelumnya
         //dilakukan diawal saat sebelum  pengisian data
         File f = new File("result.txt");
-        if(f.exists()){
+        if (f.exists()) {
             f.delete();
         }
     }
 
-    public static void SaveSuccess(){
+    public static void SaveSuccess() {
         System.out.println("File berhasil disimpan bernama result.txt");
+    }
+
+
+    public static void addNewline() {
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter("result.txt", true));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

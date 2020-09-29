@@ -227,16 +227,35 @@ public class Main {
                 System.out.println("Matriks : ");
                 System.out.println(matriks);
             }
-            double determinan = SPLMatriks.Determinan(matriks);
+
+            Matriks tempMatriks = Matriks.createMatriks(matriks.getRow(), matriks.getCol());
+            int i, j;
+            for (i = 0; i < matriks.getRow(); i++) {
+                for (j = 0; j < matriks.getCol(); j++) {
+                    tempMatriks.setElement(i, j, matriks.getElement(i, j));
+                }
+            }
+
+            double determinan = SPLMatriks.Determinan(tempMatriks);
             if (determinan == 0) {
                 System.out.println("Matriks tidak memiliki balikan");
             } else {
                 System.out.println("Matriks balikan : ");
                 matriks = SPLinvers.inverseMatriks(matriks);
                 System.out.println(matriks);
+
+                // save file ke result.txt
+                WriteFile.DelFileExist();
+                WriteFile.SaveFile("Matriks inverse : ");
+                WriteFile.addNewline();
+                for (i = 0; i < matriks.getRow(); i++) {
+                    for (j = 0; j < matriks.getCol(); j++) {
+                        WriteFile.SaveFile(Double.toString(matriks.getElement(i, j)));
+                    }
+                    WriteFile.addNewline();
+                }
+                WriteFile.SaveSuccess();
             }
-
-
         } else if (menu == 4) {
             // interpolasi
             jenisinput = JenisInput();
@@ -261,6 +280,10 @@ public class Main {
             WriteFile.DelFileExist();
             WriteFile.SaveFile("Hasil taksiran P(x) adalah");
             WriteFile.SaveFile(x);
+            WriteFile.addNewline();
+            WriteFile.SaveFile("Untuk X =");
+            WriteFile.SaveFile(Double.toString(X));
+            System.out.println();
             WriteFile.SaveSuccess();
 
 
