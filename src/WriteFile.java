@@ -30,7 +30,7 @@ public class WriteFile {
     }
 
     public static void SaveSuccess() {
-        System.out.println("File berhasil disimpan bernama result.txt");
+        System.out.println("Hasil berhasil disimpan kedalam file bernama result.txt");
     }
 
 
