@@ -1,10 +1,12 @@
 # Tugas Besar Aljabar Linear 1
 
 ## Deskripsi
-  Program dalam bahasa java untuk menghitung berbagai permasalahan matriks.
+  Program dalam bahasa java untuk menghitung berbagai permasalahan matriks. Fitur dapat dilihat pada section selanjutnya
   
 ## Instalasi
   ```git clone https://github.com/mhmmdjafarg/AljabarLinear1.git```
+## Cara menggunakan program
+
 ## Fitur
 1. Menghitung  solusi  SPL  
    - Metode  eliminasi  Gauss
