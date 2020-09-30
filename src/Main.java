@@ -156,10 +156,10 @@ public class Main {
             //matriks sudah terisi
             if (spl == 1) {
                 // Eliminasi Gauss
-                SPLMatriks.eliminasiGauss(matriks);
+                SPLMatriks.eliminasiGauss(matriks, 1);
             } else if (spl == 2) {
                 // eliminasi gauss jordan
-                SPLMatriks.eliminasiGaussJordan(matriks);
+                SPLMatriks.eliminasiGaussJordan(matriks, 1);
             } else if (spl == 3) {
                 // metode matriks balikan
                 HasilSPL = SPLinvers.solusiSPLInverse(matriks);
