@@ -9,6 +9,7 @@ public class Main {
         // Menampilkan pilihan menu dan mengembalikan nilai pilihannya
 
         Scanner in = new Scanner(System.in);
+        System.out.println(batas);
         System.out.println("MENU : ");
         System.out.println("1. Sistem Persamaaan Linier");
         System.out.println("2. Determinan");
@@ -16,6 +17,7 @@ public class Main {
         System.out.println("4. Interpolasi Polinom");
         System.out.println("5. Regresi linier berganda");
         System.out.println("6. Keluar");
+        System.out.println();
 
         // minta masukan pilihan
         System.out.print("Pilih menu :");
@@ -210,7 +212,7 @@ public class Main {
 
             // bagian save file
             WriteFile.DelFileExist();
-            WriteFile.SaveFile("Nilai determinan matriks Anda adalah :");
+            WriteFile.SaveFile("Nilai determinan matriks adalah :");
             WriteFile.SaveFile(Double.toString(determinan));
             WriteFile.SaveSuccess();
 
