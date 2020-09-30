@@ -6,6 +6,12 @@
 ## Instalasi
   ```git clone https://github.com/mhmmdjafarg/AljabarLinear1.git```
 ## Cara menggunakan program
+** catatan **
+- Pada input gunakan angka saja untuk pilihan menu
+- Untuk input dari file, masukkan absolutepath dari file tersebut. Contoh : (file bernama matriks.txt)
+  ```D:\Programming\matriks.txt```
+- Setiap proses yang berhasil, otomatis akan terbuat file baru bernama result.txt yang menyimpan hasil.
+- File result.txt yang tidak dipindahkan, akan teroverwrite oleh result.txt yang baru ketika menjalankan program lagi dan berhasil
 
 ## Fitur
 1. Menghitung  solusi  SPL  
