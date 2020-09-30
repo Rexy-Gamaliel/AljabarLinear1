@@ -228,6 +228,7 @@ public class Main {
                 System.out.println(matriks);
             }
 
+            // matriks cek determinan
             Matriks tempMatriks = Matriks.createMatriks(matriks.getRow(), matriks.getCol());
             int i, j;
             for (i = 0; i < matriks.getRow(); i++) {
@@ -267,11 +268,50 @@ public class Main {
                 matriks = Matriks.createMatriks(n + 1, 2);
                 input.interpolasiRun(matriks);
             }
-            // ubah menjadi matriks augmented
+
+            // ubah menjadi matriks augmented interpolasi
             matriks = interpolasi.MakeInterpolasi(matriks);
             System.out.print("Masukkan nilai yang akan ditaksir X : ");
             double X = scanner.nextDouble();
-            double result = interpolasi.HasilTaksiran(matriks, X);
+
+            // cek determinan
+            Matriks tempMatriks = Matriks.createMatriks(matriks.getRow(), matriks.getCol());
+            int i, j;
+            for (i = 0; i < matriks.getRow(); i++) {
+                for (j = 0; j < matriks.getCol(); j++) {
+                    tempMatriks.setElement(i, j, matriks.getElement(i, j));
+                }
+            }
+            Cramer funct = new Cramer();
+            double determinan = funct.Determinan(tempMatriks, -1);
+
+            // menu SPL
+            int spl = SPLMenu();
+            double result = 0;
+            if (spl == 1) {
+                // Eliminasi Gauss
+
+            } else if (spl == 2) {
+                // eliminasi gauss jordan
+                result = interpolasi.HasilTaksiranGaussJordan(matriks, X);
+            } else if (spl == 3) {
+                if (determinan == 0) {
+                    System.out.println("Tidak dapat menggunakan metode matriks balikan");
+                } else {
+                    result = interpolasi.HasilTaksiranInverse(matriks, X);
+                }
+                // metode matriks balikan
+
+            } else if (spl == 4) {
+                // metode cramer
+                if (determinan == 0) {
+                    System.out.println("Tidak dapat menggunakan metode cramer");
+                } else {
+                    result = interpolasi.HasilTaksiran(matriks, X);
+                }
+
+            }
+
             System.out.print("Hasil taksiran P(x), untuk x = " + X + " adalah ");
             System.out.format("%.4f", result);
             System.out.println();
@@ -293,7 +333,7 @@ public class Main {
             int k = scanner.nextInt();
             System.out.println("Masukkan nilai n (banyaknya persamaan), n = ");
             int n = scanner.nextInt();
-            Matriks MAugmentedReg = Matriks.createMatriks(n, k+1);
+            Matriks MAugmentedReg = Matriks.createMatriks(n, k + 1);
             input.regresiRun(MAugmentedReg);
             //MAugmented berukura
         } else {

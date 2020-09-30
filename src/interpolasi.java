@@ -31,6 +31,7 @@ public class interpolasi {
     }
 
     // I.S matriks harus sudah bentuk MatriksInterpolasi
+    // metode cramer
     public static double HasilTaksiran(Matriks MatriksInterpolasi, double taksiranX) {
         Cramer cramer = new Cramer();
         int i, j;
@@ -50,5 +51,60 @@ public class interpolasi {
         }
         return result;
         // nanti hasil dirounding
+    }
+
+    public static double HasilTaksiranInverse(Matriks matriksInterpolasi, double taksiranX) {
+        // I.S : Matriks harus sudah bentuk matriks interpolasi
+        // menggunakan metode inverse
+        // matriks penampung solusi SPL
+        Matriks hasil = Matriks.createMatriks(matriksInterpolasi.getRow(), 1);
+        hasil = SPLinvers.solusiSPLInverse(matriksInterpolasi);
+        System.out.println(hasil);
+        double result = 0;
+        int power = 0;
+        double X;
+        double koefisienSolusi;
+        int i;
+        for (i = 0; i < hasil.getRow(); i++) {
+            X = Math.pow(taksiranX, power);
+            koefisienSolusi = hasil.getElement(i, 0);
+            result += (koefisienSolusi * X);
+            power++;
+        }
+        return result;
+    }
+
+
+    public static double HasilTaksiranGaussJordan(Matriks matriksInterpolasi, double taksiranX) {
+        // I.S : Matriks harus sudah bentuk matriks interpolasi
+        // menghitung SPL interpolasi dengan gauss-jordan
+        double result = 0;
+
+        matriksInterpolasi = SPLMatriks.reduksiOBEJordan(matriksInterpolasi);
+
+        // salin hasil ke dalam matriks baru
+        double value;
+        Matriks MatriksSolusi = Matriks.createMatriks(matriksInterpolasi.getRow(), 1);
+        for (int i = 0; i < matriksInterpolasi.getRow(); i++) {
+            value = matriksInterpolasi.getElement(i, matriksInterpolasi.getCol() - 1);
+            MatriksSolusi.setElement(i, 0, value);
+        }
+
+        if (SPLMatriks.isNotHaveSolution(matriksInterpolasi)) {
+            System.out.println("SPL tidak ada solusi");
+        } else if (SPLMatriks.isParametrik(matriksInterpolasi) != -1) {
+            int row = SPLMatriks.isParametrik(matriksInterpolasi);
+            SPLMatriks.printParametrik(matriksInterpolasi, row);
+        } else {
+            int power = 0;
+            double X, koefisienSolusi;
+            for (int i = 0; i < MatriksSolusi.getRow(); i++) {
+                X = Math.pow(taksiranX, power);
+                koefisienSolusi = MatriksSolusi.getElement(i, 0);
+                result += (koefisienSolusi * X);
+                power++;
+            }
+        }
+        return result;
     }
 }
