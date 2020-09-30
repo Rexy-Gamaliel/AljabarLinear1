@@ -288,54 +288,58 @@ public class Main {
             // menu SPL
             int spl = SPLMenu();
             double result = 0;
-            if (spl == 1) {
-                // Eliminasi Gauss
-
-            } else if (spl == 2) {
-                // eliminasi gauss jordan
-                result = interpolasi.HasilTaksiranGaussJordan(matriks, X);
-            } else if (spl == 3) {
-                if (determinan == 0) {
-                    System.out.println("Tidak dapat menggunakan metode matriks balikan");
-                } else {
+            if (determinan == 0) {
+                System.out.println("Tidak dapat menaksir X, dikarenakan solusi tidak unik");
+            } else {
+                if (spl == 1) {
+                    // Eliminasi Gauss
+                    result = interpolasi.HasilTaksiranGauss(matriks, X);
+                } else if (spl == 2) {
+                    // eliminasi gauss jordan
+                    result = interpolasi.HasilTaksiranGaussJordan(matriks, X);
+                } else if (spl == 3) {
+                    // metode matriks balikan
                     result = interpolasi.HasilTaksiranInverse(matriks, X);
-                }
-                // metode matriks balikan
-
-            } else if (spl == 4) {
-                // metode cramer
-                if (determinan == 0) {
-                    System.out.println("Tidak dapat menggunakan metode cramer");
-                } else {
+                } else if (spl == 4) {
+                    // metode cramer
                     result = interpolasi.HasilTaksiran(matriks, X);
                 }
 
+                System.out.print("Hasil taksiran P(x), untuk x = " + X + " adalah ");
+                System.out.format("%.4f", result);
+                System.out.println();
+
+                String x = Double.toString(result);
+                WriteFile.DelFileExist();
+                WriteFile.SaveFile("Hasil taksiran P(x) adalah");
+                WriteFile.SaveFile(x);
+                WriteFile.addNewline();
+                WriteFile.SaveFile("Untuk X =");
+                WriteFile.SaveFile(Double.toString(X));
+                System.out.println();
+                WriteFile.SaveSuccess();
             }
-
-            System.out.print("Hasil taksiran P(x), untuk x = " + X + " adalah ");
-            System.out.format("%.4f", result);
-            System.out.println();
-
-            String x = Double.toString(result);
-            WriteFile.DelFileExist();
-            WriteFile.SaveFile("Hasil taksiran P(x) adalah");
-            WriteFile.SaveFile(x);
-            WriteFile.addNewline();
-            WriteFile.SaveFile("Untuk X =");
-            WriteFile.SaveFile(Double.toString(X));
-            System.out.println();
-            WriteFile.SaveSuccess();
 
 
         } else if (menu == 5) { // regresi linear
             /* Membuat matriks Augmented */
-            System.out.println("Masukkan nilai k (banyaknya variabel independen x), k = ");
-            int k = scanner.nextInt();
-            System.out.println("Masukkan nilai n (banyaknya persamaan), n = ");
-            int n = scanner.nextInt();
-            Matriks MAugmentedReg = Matriks.createMatriks(n, k + 1);
-            input.regresiRun(MAugmentedReg);
-            //MAugmented berukura
+            jenisinput = JenisInput();
+            if (jenisinput == 1) {
+                matriks = input.readFile();
+
+                //tambahin variable k nya
+            } else {
+                System.out.println("Masukkan nilai k (banyaknya variabel independen x), k = ");
+                int k = scanner.nextInt();
+                System.out.println("Masukkan nilai n (banyaknya persamaan), n = ");
+                int n = scanner.nextInt();
+                Matriks MAugmentedReg = Matriks.createMatriks(n, k + 1);
+                input.regresiRun(MAugmentedReg);
+                //MAugmented berukuran
+            }
+            // proses
+
+
         } else {
             System.out.println();
             System.out.println("Terima kasih telah menggunakan progam kami");

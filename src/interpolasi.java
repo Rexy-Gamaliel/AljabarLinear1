@@ -107,4 +107,23 @@ public class interpolasi {
         }
         return result;
     }
+
+
+    public static double HasilTaksiranGauss(Matriks matriksInterpolasi, double taksiranX) {
+        // I.S : matriks sudah bentuk SPL interpolasi
+        // F.S mengembalikan nilai taksiran interpolasi
+
+        double[] gauss = new double[matriksInterpolasi.getRow()];
+        gauss = SPLMatriks.eliminasiGauss(matriksInterpolasi, 0);
+
+        int power = 0;
+        double result = 0;
+        double X;
+        for (int i = 0; i < matriksInterpolasi.getRow(); i++) {
+            X = Math.pow(taksiranX, power);
+            result += (gauss[i] * X);
+            power++;
+        }
+        return result;
+    }
 }
