@@ -99,8 +99,9 @@ public class SPLMatriks {
         return matriks;
     }
 
-    public static void eliminasiGauss(Matriks matriks) {
+    public static double[] eliminasiGauss(Matriks matriks, int mode) {
         Matriks hasilOBEMatriks = reduksiOBE(matriks);
+        double[] hasil = new double[matriks.getRow()];
 
         if (isNotHaveSolution(hasilOBEMatriks)) {
             System.out.println("SPL tidak ada solusi");
@@ -109,14 +110,19 @@ public class SPLMatriks {
             printParametrik(matriks, row);
         } else {
             double[] coefficient = SPLMatriks.getCoefficient(matriks);
-            double[] hasil = backSubtituion(matriks, coefficient);
+            hasil = backSubtituion(matriks, coefficient);
 
-            printHasil(hasil);
+            if (mode == 1) {
+                printHasil(hasil);
+            }
         }
+
+        return hasil;
     }
 
-    public static void eliminasiGaussJordan(Matriks matriks) {
+    public static double[] eliminasiGaussJordan(Matriks matriks, int mode) {
         Matriks hasilOBEMatriks = reduksiOBEJordan(matriks);
+        double[] hasil = new double[matriks.getRow()];
 
         if (isNotHaveSolution(hasilOBEMatriks)) {
             System.out.println("SPL tidak ada solusi");
@@ -125,10 +131,14 @@ public class SPLMatriks {
             printParametrik(matriks, row);
         } else {
             double[] coefficient = SPLMatriks.getCoefficient(matriks);
-            double[] hasil = backSubtituion(matriks, coefficient);
+            hasil = backSubtituion(matriks, coefficient);
 
-            printHasil(hasil);
+            if (mode == 1) {
+                printHasil(hasil);
+            }
         }
+
+        return hasil;
     }
 
     public static int isParametrik(Matriks matriks) {
@@ -289,8 +299,7 @@ public class SPLMatriks {
         System.out.print("[");
 
         for (int i=0; i<len1D; i++) {
-            String hasilStr = new DecimalFormat("##.##").format(matrix[i]);
-            System.out.print(hasilStr);
+            System.out.print(matrix[i]);
             if (i!=len1D-1) {
                 System.out.print(", ");
             }
