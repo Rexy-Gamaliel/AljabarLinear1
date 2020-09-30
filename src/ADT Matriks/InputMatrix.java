@@ -163,7 +163,7 @@ public class InputMatrix {
         int j;
         double xj;
         MTest.setElement(0, 0, 1);
-        for (j=0; j<MTest.getCol(); j++) {
+        for (j=1; j<MTest.getCol(); j++) {
             System.out.println("Masukkan nilai x_" + (j+1) + " : ");
             xj = scanner.nextDouble();
             MTest.setElement(0, j, xj);
