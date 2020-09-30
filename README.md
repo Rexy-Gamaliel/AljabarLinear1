@@ -6,7 +6,7 @@
 ## Instalasi
   ```git clone https://github.com/mhmmdjafarg/AljabarLinear1.git```
 ## Cara menggunakan program
-** catatan **
+**catatan**
 - Pada input gunakan angka saja untuk pilihan menu
 - Untuk input dari file, masukkan absolutepath dari file tersebut. Contoh : (file bernama matriks.txt)
   ```D:\Programming\matriks.txt```
