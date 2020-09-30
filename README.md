@@ -8,6 +8,7 @@
 ## Cara menggunakan program
 **catatan**
 - Pada input gunakan angka saja untuk pilihan menu
+- Hanya menerima file berekstensi .txt
 - Untuk input dari file, masukkan absolutepath dari file tersebut. Contoh : (file bernama matriks.txt)
   ```D:\Programming\matriks.txt```
 - Setiap proses yang berhasil, otomatis akan terbuat file baru bernama result.txt yang menyimpan hasil.
