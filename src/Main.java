@@ -324,23 +324,23 @@ public class Main {
 
 
         } else if (menu == 5) { // regresi linear
-            /* Membuat matriks Augmented */
             jenisinput = JenisInput();
-            if (jenisinput == 1) {
-                matriks = input.readFile();
-
-                //tambahin variable k nya
-            } else {
+            /* Menginput ukuran matriks */
+            Matriks MAugmentedReg;
+            if (jenisinput == 1) {      // input file
+                MAugmentedReg = input.readFile();                
+            } else {                    // input manual
                 System.out.println("Masukkan nilai k (banyaknya variabel independen x), k = ");
                 int k = scanner.nextInt();
                 System.out.println("Masukkan nilai n (banyaknya persamaan), n = ");
                 int n = scanner.nextInt();
-                Matriks MAugmentedReg = Matriks.createMatriks(n, k + 1);
-                input.regresiRun(MAugmentedReg);
-                //MAugmented berukuran
+                /* Membuat matriks Augmented */
+                MAugmentedReg = Matriks.createMatriks(n, k + 1);
+                input.regresiRunMan(MAugmentedReg);
             }
+            // elemen MAugmentedReg terdefinisi
             // proses
-
+            regresi.ComputeRegresi(MAugmentedReg);
 
         } else {
             System.out.println();

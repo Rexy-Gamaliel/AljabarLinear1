@@ -120,34 +120,53 @@ public class InputMatrix {
             }
         }
     }
-
+    
     // input n peubah diluar
     // input k diluar
     // spl run regresi
-    public void regresiRun(Matriks matriks) {
-        /**Membentuk matriks augmented dengan format
+    public void regresiRunMan(Matriks matriks) {
+        /**Membentuk matriks augmented dengan format 
          * x11 x12 x13 ... x1k y1
          * x21 x22 x23 ... x2k y2
          * ...
          * xn1 xn2 xn3 ... xnk yn
-         *
+         * 
          * I.S. matriks terdefinisi dengan ukuran n x k+1
          * F.S. elemen2 matriks terisi sesuai format
          */
-
         Scanner scanner = new Scanner(System.in);
         int i, j;
         double valInput;
         for (i = 0; i < matriks.getRow(); i++) {
             for (j = 0; j < matriks.getCol(); j++) {
-                if (j == matriks.getCol() - 1) {     // kolom terakhir
-                    System.out.println("Masukkan nilai y_" + (i + 1) + " : ");
-                } else {                                  // kolom X
-                    System.out.println("Masukkan nilai x_" + (i + 1) + "," + (j + 1) + " : ");
+                if (j == matriks.getCol()-1) {     // kolom terakhir
+                    System.out.println("Masukkan nilai y_" + (i+1) + " : ");
+                }
+                else {                                  // kolom X
+                    System.out.println("Masukkan nilai x_" + (i+1) + "," + (j+1) + " : ");
                 }
                 valInput = scanner.nextDouble();
                 matriks.setElement(i, j, valInput);
             }
+        }
+    }
+    
+    public void regresiTestMan(Matriks MTest) {
+        /**Menerima input variabel independen x_j untuk j [1..k]
+         * dan menentukan nilai variabel dependen y berdasarkan x_j
+         * dan koefisien regresi yang telah diketahui
+         * I.S. MTest telah terdefinisi ukurannya (1 x k+1), dengan kolom
+         * pertama adalah 1 dan k kolom selanjutnya adalah x_j
+         * F.S. MTest terisi dengan elemen 1, x1, x2, ..., xk
+         */
+        Scanner scanner = new Scanner(System.in);
+        int j;
+        double xj;
+        MTest.setElement(0, 0, 1);
+        for (j=0; j<MTest.getCol(); j++) {
+            System.out.println("Masukkan nilai x_" + (j+1) + " : ");
+            xj = scanner.nextDouble();
+            MTest.setElement(0, j, xj);
         }
     }
 }
