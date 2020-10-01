@@ -32,19 +32,22 @@ public class SPLcramer {
             WriteFile.SaveFile(Double.toString(det));
             WriteFile.addNewline();
 
+            int k = 2;
             for (idxVar = 0; idxVar < matriks.getCol() - 1; idxVar++) {
+
                 Matriks newMatriks = matriks.createDuplicate();
                 det = cramer.Determinan(newMatriks, idxVar);
                 if (idxVar != 0) {
-                    System.out.print("X" + (idxVar + 1) + " = ");
+                    System.out.print("X" + (k) + " = ");
                     X = (det / detUtama);
                     System.out.format("%.2f", X);
                     System.out.println();
 
-                    String var = "X" + idxVar + " =";
+                    String var = "X" + k + " =";
                     WriteFile.SaveFile(var);
                     WriteFile.SaveFile(Double.toString(X));
                     WriteFile.addNewline();
+                    k++;
                 }
             }
             WriteFile.SaveSuccess();
