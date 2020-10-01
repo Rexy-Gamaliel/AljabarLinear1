@@ -271,17 +271,22 @@ public class Main {
                     pil = scanner.nextInt();
                 }
 
+                int N = matriks.getRow();
+                Matriks matriksInv = Matriks.createMatriks(N, N);
 
                 if (pil == 1) {
                     // metode OBE
                     matriks = SPLinvers.inverseMatriks(matriks);
                 } else if (pil == 2) {
                     // metode cofactor
+                    InverseKofaktor.hitungInverse(matriks, matriksInv, N);
+                    matriks = matriksInv;
                 }
 
                 // print matriks balikan
                 System.out.println("Matriks balikan : ");
-                System.out.println(matriks);
+//                System.out.println(matriks);
+                SPLMatriks.printMatrix2d(matriks);
 
                 // save file ke result.txt
                 WriteFile.DelFileExist();
