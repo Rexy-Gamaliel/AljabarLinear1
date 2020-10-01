@@ -20,7 +20,7 @@ public class Main {
         System.out.println();
 
         // minta masukan pilihan
-        System.out.print("Pilih menu :");
+        System.out.print("Pilih menu : ");
         int choose = in.nextInt();
         while (choose < 1 || choose > 6) {
             System.out.println();
@@ -80,7 +80,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1.File");
         System.out.println("2.Console");
-        System.out.print("Pilih jenis input :");
+        System.out.print("Pilih jenis input : ");
         int jenisinput = scanner.nextInt();
         while (jenisinput < 1 && jenisinput > 2) {
             clearScreen();
