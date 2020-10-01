@@ -158,10 +158,6 @@ public class regresi {
         //y = My.getElement(0, 0);
 
         for (int i=0; i<MTest.getCol(); i++) {
-            System.out.printf(">MTest[%d] = %f", i, MTest.getElement(0,i));
-            System.out.println();
-            System.out.printf(">B[%d] = %f", i, B.getElement(i,0));
-            System.out.println();
             y += MTest.getElement(0,i) * B.getElement(i,0);
         }
         return y;
@@ -170,7 +166,8 @@ public class regresi {
     public static void WriteRegresiToFile(Matriks MReg, Matriks B) {
         WriteFile.DelFileExist();
         // Write matriks regresi
-        WriteFile.SaveFile("Matriks Regresi:\n");
+        WriteFile.SaveFile("Matriks Regresi:");
+        WriteFile.addNewline();
         int i, j;
         for (i=0; i<MReg.getRow(); i++) {
             // suku pertama
@@ -191,16 +188,18 @@ public class regresi {
             WriteFile.SaveFile(row);
         }
         
-        WriteFile.SaveFile("\n\n");
+        WriteFile.addNewline();
+        WriteFile.addNewline();
         // Write persamaan regresi
-        WriteFile.SaveFile("Persamaan Regresi:\n");
-        String equation;
-        equation = "y = ";
+        WriteFile.SaveFile("Persamaan Regresi:");
+        WriteFile.addNewline();
+        String equation = "y = ";
         // suku pertama
         equation += "(" + Double.toString(B.getElement(0,0)) + ").b0";
         for (i=1; i<B.getRow(); i++) {
             equation +=  " + (" + Double.toString(B.getElement(i,0)) + ").b" + i;
         }
+        WriteFile.SaveFile(equation);
         
         WriteFile.SaveSuccess();
     }

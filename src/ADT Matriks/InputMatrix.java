@@ -153,25 +153,21 @@ public class InputMatrix {
     
     public void regresiTestMan(Matriks MTest) {
         /**Menerima input variabel independen x_j untuk j [1..k]
-         * dan menentukan nilai variabel dependen y berdasarkan x_j
-         * dan koefisien regresi yang telah diketahui
          * I.S. MTest telah terdefinisi ukurannya (1 x k+1), dengan kolom
          * pertama adalah 1 dan k kolom selanjutnya adalah x_j
          * F.S. MTest terisi dengan elemen 1, x1, x2, ..., xk
          */
         Scanner scanner = new Scanner(System.in);
-        MTest.setElement(0, 0, 1);
+        //MTest.setElement(0, 0, 1);
         double xj;
-//            for (int idx=0; idx<4; idx++) {
-  //              System.out.println("WOYYYYYYYY");
-    //            System.out.print("MTest[%d] = %f\n", idx, MTest.getElement(0,idx));
-//            }
-        for (int j=1; j<MTest.getCol(); j++) {
-            System.out.print("Masukkan nilai x_" + j + " : ");
-            System.out.print(j);
-            xj = scanner.nextDouble();
+        int j;
+        for (j=1; j<MTest.getCol()-3; j++) {
+            System.out.print("Masukkan nilai x_" + (j-1) + " : ");
+            //System.out.print(j);
+            double xj = scanner.nextDouble();
             MTest.setElement(0, j, xj);
         }
+        MTest.setElement(0, 0, 1);
         /*
         for (int j=1; j < MTest.getCol(); j++) {
             int k = j+1;
