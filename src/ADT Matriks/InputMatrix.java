@@ -160,13 +160,25 @@ public class InputMatrix {
          * F.S. MTest terisi dengan elemen 1, x1, x2, ..., xk
          */
         Scanner scanner = new Scanner(System.in);
-        int j;
-        double xj;
         MTest.setElement(0, 0, 1);
-        for (j=1; j<MTest.getCol(); j++) {
-            System.out.println("Masukkan nilai x_" + (j+1) + " : ");
+        double xj;
+//            for (int idx=0; idx<4; idx++) {
+  //              System.out.println("WOYYYYYYYY");
+    //            System.out.print("MTest[%d] = %f\n", idx, MTest.getElement(0,idx));
+//            }
+        for (int j=1; j<MTest.getCol(); j++) {
+            System.out.print("Masukkan nilai x_" + j + " : ");
+            System.out.print(j);
             xj = scanner.nextDouble();
             MTest.setElement(0, j, xj);
         }
+        /*
+        for (int j=1; j < MTest.getCol(); j++) {
+            int k = j+1;
+            System.out.println("Masukkan nilai x_" + k + " : ");
+            double xj = scanner.nextDouble();
+            MTest.setElement(0, j, xj);
+        }
+        */
     }
 }

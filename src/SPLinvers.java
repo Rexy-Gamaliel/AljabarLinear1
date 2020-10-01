@@ -41,55 +41,47 @@ public class SPLinvers {
     }
 
     /* Menghasilkan invers dari matriks */
-    public static Matriks inverseMatriks(Matriks matrik) {
-        // Prekondisi : Matriks berukuran nxn
-        Matriks identitas = Matriks.createMatriks(matrik.getRow(), matrik.getCol());
-        // isi matriks identitas
-
+    public static Matriks inverseMatriks(Matriks MInput) {
+        /* Prekondisi: MInput merupakan matriks persegi */
+        /**
+         * Kamus Lokal:
+         * N              : int         { ukuran matrix }
+         * MInputExtended : double[][]  { komponen array dari MInput, diextend dengan matriks identitas di sebelah kanan }
+         * MProses        : Matriks     { matriks yang dioperasikan untuk menghasilkan matriks invers }
+         * MInvers        : Matriks     { hasil matriks invers }
+         */
+        int N = MInput.getCol();
+        Matriks MProses, MInvers;
+        double[][] MInputExtended = new double[N][2*N];
         int i, j;
-        for (i = 0; i < identitas.getRow(); i++) {
-            for (j = 0; j < identitas.getCol(); j++) {
-                ;
-                if (i == j) {
-                    identitas.setElement(i, j, 1);
-                } else {
-                    identitas.setElement(i, j, 0);
-                }
+    
+        // Menginisialisasi MInvers
+        for (i=0; i<N; i++) {
+          for (j=0; j<N; j++) {
+            if (i==j) {
+                MInputExtended[i][j] = MInput.getElement(i, j);
+                MInputExtended[i][j+N] = 1;
             }
-        }
-
-        // matriks yang akan diproses oleh OBE
-        // ukuran 2x lebih besar karena akan diconcat dengan matriks identitas
-        Matriks M = Matriks.createMatriks(matrik.getRow(), matrik.getCol() * 2);
-        for (i = 0; i < matrik.getRow(); i++) {
-            for (j = 0; j < matrik.getCol(); j++) {
-                ;
-                M.setElement(i, j, matrik.getElement(i, j));
+            else {
+                MInputExtended[i][j] = MInput.getElement(i, j);
+                MInputExtended[i][j+N] = 0;
             }
+          }
         }
-
-        // extend identitas
-        int k;
-        for (i = 0; i < matrik.getRow(); i++) {
-            k = 0;
-            for (j = matrik.getCol(); j < M.getCol(); j++) {
-                M.setElement(i, j, identitas.getElement(i, k));
-                k++;
-            }
+        MProses = new Matriks(N, 2*N, MInputExtended);
+    
+        MProses = SPLMatriks.reduksiOBE(MProses);
+        MProses = SPLMatriks.reduksiOBEJordan(MProses);
+        
+        MInvers = new Matriks(N, N, new double[N][N]);
+        for (i=0; i<N; i++) {
+          for (j=0; j<N; j++) {
+            MInvers.setElement(i, j, MProses.getElement(i, j+N));
+          }
         }
-
-        M = SPLMatriks.reduksiOBE(M);
-        M = SPLMatriks.reduksiOBEJordan(M);
-
-        for (i = 0; i < matrik.getRow(); i++) {
-            k = 0;
-            for (j = matrik.getCol(); j < M.getCol(); j++) {
-                identitas.setElement(i, k, M.getElement(i, j));
-                k++;
-            }
-        }
-        return identitas;
-    }
+    
+        return MInvers;
+      }
 
     /* Menampilkan solusi SPL */
     public static Matriks solusiSPLInverse(Matriks MAugmented) {

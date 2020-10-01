@@ -8,32 +8,36 @@ public class regresi {
          * Mencetak persamaan r
          * Menerima input xj untuk j [1..k]
          * Menghitung y berdasarkan xj dan koefisien regresi
+         * Menyimpan output regresi ke file
          * 
          * MAugmentedReg    : Matriks input dalam bentuk matriks augmented
-         *                    ukuran n x k+2
+         *                    ukuran n x k+1
          * MReg             : Matriks regresi yang merepresentasikan persamaan Normal Equation for Multiple Linear Regression
-         *                    ukuran n x k+2
+         *                    ukuran k+1 x k+2
          * B                : Matriks yang menampung koefisien regresi b0, b1, b2, ..., bk
          *                    ukuran k+1 x 1
          * MTest            : Matriks yang menampung variabel independen x_j untuk ditentukan hasilnya
          *                    ukuran 1 x k+1
          */
         // Membuat Matriks Regresi
-        Matriks MReg = Matriks.createMatriks(MAugmentedReg.getRow(), MAugmentedReg.getCol()+1);
+        Matriks MReg = Matriks.createMatriks(MAugmentedReg.getCol(), MAugmentedReg.getCol()+1);
         MReg = makeMatriksRegresi(MAugmentedReg);
 
         // Mencetak matriks regresi
         PrintMatriksRegresi(MReg);
 
         // Menghitung koefisien regresi
-        Matriks B = Matriks.createMatriks(MAugmentedReg.getCol()-1,1);
+        Matriks B = Matriks.createMatriks(MAugmentedReg.getCol(),1);
         B = KoefisienRegresi(MReg);
-
+        
         // Mencetak persamaan regresi
         PrintPersRegresi(B);
 
+        // Menyimpan hasil regresi ke file
+        WriteRegresiToFile(MReg, B);
+
         // Meng-input xj dari user
-        Matriks MTest = Matriks.createMatriks(1, MAugmentedReg.getCol()-1);
+        Matriks MTest = Matriks.createMatriks(1, MAugmentedReg.getCol());
         InputMatrix Input = new InputMatrix();
         Input.regresiTestMan(MTest);
 
@@ -41,6 +45,7 @@ public class regresi {
         double y = ResultRegresi(MTest, B);
         System.out.print("y = " + y);
         System.out.println();
+
     }
 
     public static Matriks makeMatriksRegresi (Matriks MAugmentedReg) {
@@ -136,23 +141,67 @@ public class regresi {
         */
         int baris = B.getRow();
         int i;
-        System.out.printf("y = %8f", B.getElement(0, 0));
+        System.out.printf("y = %.8f", B.getElement(0, 0));
         for (i=1; i<baris; i++) {
-            System.out.printf(" + (%.4f)x%d", B.getElement(i, 0), i);
+            System.out.printf(" + (%.8f).x%d", B.getElement(i, 0), i);
         }
         System.out.println();
     }
 
     public static double ResultRegresi (Matriks MTest, Matriks B) {
         /**Menghitung hasil regresi berdasarkan input xk pada MTest dan koefisien regresi pada B
-         * My adalah matriks temp 1x1 untuk menampung hasil kali MXk ukuran dan B dalam bentuk matriks
+         * My adalah matriks temp 1x1 untuk menampung hasil kali MTest ukuran dan B dalam bentuk matriks
         */
-        double y;
-        Matriks My = Matriks.createMatriks(1, 1);
-        My = Matriks.KaliMatriks(MTest, B);
-        y = My.getElement(0, 0);
+        Double y = 0.0;
+        //Matriks My = Matriks.createMatriks(1, 1);
+        //My = Matriks.KaliMatriks(MTest, B);
+        //y = My.getElement(0, 0);
+
+        for (int i=0; i<MTest.getCol(); i++) {
+            System.out.printf(">MTest[%d] = %f", i, MTest.getElement(0,i));
+            System.out.println();
+            System.out.printf(">B[%d] = %f", i, B.getElement(i,0));
+            System.out.println();
+            y += MTest.getElement(0,i) * B.getElement(i,0);
+        }
         return y;
     } 
 
-
+    public static void WriteRegresiToFile(Matriks MReg, Matriks B) {
+        WriteFile.DelFileExist();
+        // Write matriks regresi
+        WriteFile.SaveFile("Matriks Regresi:\n");
+        int i, j;
+        for (i=0; i<MReg.getRow(); i++) {
+            // suku pertama
+            String row = "(" + Double.toString(MReg.getElement(i,0)) + ").b0";
+            for (j=1; j<MReg.getCol(); j++) {
+                if (j < MReg.getCol()-1) {
+                    // ruas kiri
+                    row += " + (" + Double.toString(MReg.getElement(i,j)) + ").b" + j;
+                }
+                else {
+                    // ruas kanan
+                    row += " = " + Double.toString(MReg.getElement(i,j));
+                }
+                //WriteFile.SaveFile(Double.toString(MReg.getElement(i,j)));
+                //WriteFile.SaveFile(" ");
+            }
+            row += "\n";
+            WriteFile.SaveFile(row);
+        }
+        
+        WriteFile.SaveFile("\n\n");
+        // Write persamaan regresi
+        WriteFile.SaveFile("Persamaan Regresi:\n");
+        String equation;
+        equation = "y = ";
+        // suku pertama
+        equation += "(" + Double.toString(B.getElement(0,0)) + ").b0";
+        for (i=1; i<B.getRow(); i++) {
+            equation +=  " + (" + Double.toString(B.getElement(i,0)) + ").b" + i;
+        }
+        
+        WriteFile.SaveSuccess();
+    }
 }
