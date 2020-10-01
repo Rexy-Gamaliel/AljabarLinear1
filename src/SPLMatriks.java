@@ -194,9 +194,11 @@ public class SPLMatriks {
         int len2D = matriks.getCol();
         boolean isNotHaveSolution = false;
 
-        if (!isParametrik(matriks)) {
-            isNotHaveSolution = (matriks.getElement(len1D-1, len2D-2) == 0 && matriks.getElement(len1D-1, len2D-1) != 0);
-        }
+        if (len2D > len1D) {
+            if (!isParametrik(matriks)) {
+                isNotHaveSolution = (matriks.getElement(len1D-1, len2D-2) == 0 && matriks.getElement(len1D-1, len2D-1) != 0);
+            }
+    }
 
         return isNotHaveSolution;
     }
@@ -263,34 +265,41 @@ public class SPLMatriks {
         double total = 0;
         int rowLastParametrik = -1;
         int truthRow = 0;
+        boolean check1R = matriks.getElement(0, 0) != 0;
+        boolean check2R = matriks.getElement(0, 1) != 0;
 
-        for (int i=len1D-1; i>=0; i--) {
-            for (int j=len2D-1; j>=0; j--) {
-                total += Math.abs(matriks.getElement(i, j));
-            }
-
-            if (total == 0) {
-                rowLastParametrik = i;
-            }
-            total = 0;
-        }
-
-        if (len2D > len1D) {
-            truthRow = len1D;
+        if (len2D == 2) {
+            hasil[0] = matriks.getElement(0, 1)/matriks.getElement(0, 0);
         } else {
-            truthRow = rowLastParametrik;
-        }
+            for (int i=len1D-1; i>=0; i--) {
+                for (int j=len2D-1; j>=0; j--) {
+                    total += Math.abs(matriks.getElement(i, j));
+                }
 
-        hasil[truthRow-1] = b[truthRow-1]/matriks.getElement(truthRow-1, truthRow-1);
-
-        for (int i=truthRow-2; i>=0; i--) {
-            double sum = 0;
-            for (int j=i+1; j<truthRow; j++) {
-                sum += matriks.getElement(i, j)*hasil[j];
+                if (total == 0) {
+                    rowLastParametrik = i;
+                }
+                total = 0;
             }
 
-            hasil[i]=(b[i]-sum)/matriks.getElement(i, i);
+            if (len2D > len1D) {
+                truthRow = len1D;
+            } else {
+                truthRow = rowLastParametrik;
+            }
+
+            hasil[truthRow-1] = b[truthRow-1]/matriks.getElement(truthRow-1, truthRow-1);
+
+            for (int i=truthRow-2; i>=0; i--) {
+                double sum = 0;
+                for (int j=i+1; j<truthRow; j++) {
+                    sum += matriks.getElement(i, j)*hasil[j];
+                }
+
+                hasil[i]=(b[i]-sum)/matriks.getElement(i, i);
+            }
         }
+
 
         return hasil;
     }
