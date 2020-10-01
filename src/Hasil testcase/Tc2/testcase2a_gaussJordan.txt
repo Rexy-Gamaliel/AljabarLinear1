@@ -1,0 +1,8 @@
+Solusi SPL adalah 
+
+ Solusi Parametrik: 
+(1.0x1) + (-1.0x4)  = (-1.0)
+(1.0x2) + (-2.0x3) +  = (0.0)
+
+
+ 
