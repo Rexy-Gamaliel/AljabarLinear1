@@ -1,4 +1,4 @@
-# Tugas Besar 1 Aljabar Lineardan Geometri
+# Tugas Besar 1 Aljabar Linear dan Geometri
 
 ## Deskripsi
   Program dalam bahasa java untuk menghitung berbagai permasalahan matriks. Fitur dapat dilihat pada section selanjutnya
