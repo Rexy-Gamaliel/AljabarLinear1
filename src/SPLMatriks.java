@@ -13,7 +13,7 @@ public class SPLMatriks {
         int len2D = matriks.getCol();
         int geser = 0;
 
-        for (int i = 0; i < len1D; i++) {
+        for (int i = 0; i < len1D-1; i++) {
             double pivot = -1;
             double factor = 0;
 
@@ -46,7 +46,7 @@ public class SPLMatriks {
                             }
                         }
                     }
-//                    printMatrix2d(matriks);
+                    // printMatrix2d(matriks);
                 }
             }
         }
@@ -61,7 +61,7 @@ public class SPLMatriks {
         int len2D = matriks.getCol();
         int geser = 0;
 
-        for (int i = 0; i < len1D; i++) {
+        for (int i = 0; i < len1D-1; i++) {
             double pivot = -1;
             double factor = 0;
 
@@ -101,7 +101,7 @@ public class SPLMatriks {
                             }
                         }
                     }
-//                    printMatrix2d(matriks);
+                    // printMatrix2d(matriks);
                 }
             }
         }
