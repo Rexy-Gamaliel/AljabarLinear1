@@ -6,9 +6,38 @@ public class Cramer {
         // variable = 0, kembalikan nilai determinan untuk mencari X1
 
         int i, j;
-        Matriks newMatriks = Matriks.createMatriks(matriks.getRow(), matriks.getCol() - 1);
-        // copy matriks not include b column
+        double determinan;
         double value;
+
+        Matriks newMatriks = Matriks.createMatriks(matriks.getRow(), matriks.getRow());
+
+        if (variable != -1) {
+            for (i = 0; i < newMatriks.getRow(); i++) {
+                for (j = 0; j < newMatriks.getCol(); j++) {
+                    if(j == variable){
+                        value = matriks.getElement(i, matriks.getCol()-1);
+                    } else{
+                        value = matriks.getElement(i, j);
+                    }
+                    newMatriks.setElement(i, j, value);
+                }
+            }
+        } else {
+            for (i = 0; i < newMatriks.getRow(); i++) {
+                for (j = 0; j < newMatriks.getCol(); j++) {
+                    value = matriks.getElement(i, j);
+                    newMatriks.setElement(i, j, value);
+                }
+            }
+        }
+        determinan = SPLMatriks.Determinan(newMatriks);
+        return determinan;
+    }
+}
+
+/*
+
+     double value;
         for (i = 0; i < matriks.getRow(); i++) {
             for (j = 0; j < matriks.getCol() - 1; j++) {
                 value = matriks.getElement(i, j);
@@ -16,7 +45,7 @@ public class Cramer {
             }
         }
 
-        double determinan;
+        double determinan = 1;
         if (variable >= 0 && variable < matriks.getCol() - 1) {
             // siapkan array b
             double[] columnB = new double[matriks.getRow()]; // berukuran sepanjang row
@@ -30,7 +59,4 @@ public class Cramer {
                 newMatriks.setElement(i, variable, value);
             }
         }
-        determinan = SPLMatriks.Determinan(newMatriks);
-        return determinan;
-    }
-}
+ */
