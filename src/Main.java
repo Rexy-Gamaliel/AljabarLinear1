@@ -154,6 +154,7 @@ public class Main {
              *        bikin juga prosedur buat nge print hasilnya itu
              * (Liat contoh yg metode balikan)
              */
+
             Matriks HasilSPL = new Matriks(matriks.getRow(), 1, new double[matriks.getRow()][1]);
             //matriks sudah terisi
             if (spl == 1) {
@@ -164,16 +165,27 @@ public class Main {
                 SPLMatriks.eliminasiGaussJordan(matriks, 1);
             } else if (spl == 3) {
                 // metode matriks balikan
-                HasilSPL = SPLinvers.solusiSPLInverse(matriks);
-                SPLinvers.printSolusiSPLInvers(HasilSPL);
+                if ((matriks.getRow() + 1) == (matriks.getCol())) {
+                    HasilSPL = SPLinvers.solusiSPLInverse(matriks);
+                    SPLinvers.printSolusiSPLInvers(HasilSPL);
+                } else {
+                    System.out.println("Tidak dapat menggunakan metode ini");
+                }
             } else if (spl == 4) {
                 // metode cramer
-                SPLcramer.Solusi(matriks);
+                if ((matriks.getRow() + 1) == matriks.getCol()) {
+                    SPLcramer.Solusi(matriks);
+                } else {
+                    System.out.println("Tidak dapat menggunakan metode ini");
+                }
             }
 
 
         } else if (menu == 2) {
             // determinan
+            System.out.println(batas);
+            System.out.println("Determinan");
+            System.out.println(batas);
 
             System.out.println("1. Determinan Reduksi OBE ");
             System.out.println("2. Determinan Kofaktor ");
@@ -218,6 +230,9 @@ public class Main {
 
 
         } else if (menu == 3) { //invers
+            System.out.println(batas);
+            System.out.println("Matriks Balikan");
+            System.out.println(batas);
             jenisinput = JenisInput();
             if (jenisinput == 1) {
                 matriks = input.readFile();
@@ -243,8 +258,29 @@ public class Main {
             if (determinan == 0) {
                 System.out.println("Matriks tidak memiliki balikan");
             } else {
+                System.out.println("1. Matriks metode OBE ");
+                System.out.println("2. Matriks metode adjoint ");
+                System.out.print("Pilih metode invers : ");
+                int pil = scanner.nextInt();
+                while (pil > 2 || pil < 1) {
+                    System.out.println("Inputan Salah. Silahkan masukkam inputan lagi");
+                    System.out.println();
+                    System.out.println("1. Matriks metode OBE ");
+                    System.out.println("2. Matriks metode adjoint ");
+                    System.out.print("Pilih menu: ");
+                    pil = scanner.nextInt();
+                }
+
+
+                if (pil == 1) {
+                    // metode OBE
+                    matriks = SPLinvers.inverseMatriks(matriks);
+                } else if (pil == 2) {
+                    // metode cofactor
+                }
+
+                // print matriks balikan
                 System.out.println("Matriks balikan : ");
-                matriks = SPLinvers.inverseMatriks(matriks);
                 System.out.println(matriks);
 
                 // save file ke result.txt
@@ -261,6 +297,9 @@ public class Main {
             }
         } else if (menu == 4) {
             // interpolasi
+            System.out.println(batas);
+            System.out.println("Interpolasi");
+            System.out.println(batas);
             jenisinput = JenisInput();
             if (jenisinput == 1) {
                 matriks = input.readFile();
@@ -324,11 +363,15 @@ public class Main {
 
 
         } else if (menu == 5) { // regresi linear
+            System.out.println(batas);
+            System.out.println("Regresi Linear");
+            System.out.println(batas);
+
             jenisinput = JenisInput();
             /* Menginput ukuran matriks */
             Matriks MAugmentedReg;
             if (jenisinput == 1) {      // input file
-                MAugmentedReg = input.readFile();                
+                MAugmentedReg = input.readFile();
             } else {                    // input manual
                 System.out.println("Masukkan nilai k (banyaknya variabel independen x), k = ");
                 int k = scanner.nextInt();
