@@ -277,6 +277,7 @@ public class Main {
                     matriks = SPLinvers.inverseMatriks(matriks);
                 } else if (pil == 2) {
                     // metode cofactor
+                    matriks = kofaktorRex.ComputeInversKofaktor(matriks);
                 }
 
                 // print matriks balikan
