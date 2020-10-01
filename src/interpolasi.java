@@ -25,8 +25,8 @@ public class interpolasi {
                 // kali value sampai value^n
             }
         }
-        System.out.println("Matriks augmented untuk interpolasi : ");
-        System.out.println(newMatriks);
+        //System.out.println("Matriks augmented untuk interpolasi : ");
+        //System.out.println(newMatriks);
         return newMatriks;
     }
 
@@ -59,7 +59,6 @@ public class interpolasi {
         // matriks penampung solusi SPL
         Matriks hasil = Matriks.createMatriks(matriksInterpolasi.getRow(), 1);
         hasil = SPLinvers.solusiSPLInverse(matriksInterpolasi);
-        System.out.println(hasil);
         double result = 0;
         int power = 0;
         double X;

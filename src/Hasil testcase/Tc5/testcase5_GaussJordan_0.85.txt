@@ -1,0 +1,2 @@
+Hasil taksiran P(x) adalah 0.33723583984375 
+Untuk X = 0.85 

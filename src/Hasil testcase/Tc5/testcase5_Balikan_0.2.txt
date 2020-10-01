@@ -1,0 +1,2 @@
+Hasil taksiran P(x) adalah 0.0329609374999987 
+Untuk X = 0.2 

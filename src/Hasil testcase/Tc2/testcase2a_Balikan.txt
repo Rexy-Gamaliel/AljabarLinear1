@@ -1,0 +1,1 @@
+Matriks tidak memiliki invers dan tidak dapat dicari hasil SPL-nya menggunakan metode ini. 
