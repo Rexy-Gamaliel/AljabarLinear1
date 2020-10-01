@@ -92,9 +92,8 @@ public class interpolasi {
 
         if (SPLMatriks.isNotHaveSolution(matriksInterpolasi)) {
             System.out.println("SPL tidak ada solusi");
-        } else if (SPLMatriks.isParametrik(matriksInterpolasi) != -1) {
-            int row = SPLMatriks.isParametrik(matriksInterpolasi);
-            SPLMatriks.printParametrik(matriksInterpolasi, row);
+        } else if (SPLMatriks.isParametrik(matriksInterpolasi)) {
+            SPLMatriks.printParametrik(matriksInterpolasi);
         } else {
             int power = 0;
             double X, koefisienSolusi;
