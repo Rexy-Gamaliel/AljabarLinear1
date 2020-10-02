@@ -16,6 +16,7 @@
 - Untuk input dari file, masukkan absolutepath dari file tersebut. Contoh : (file bernama matriks.txt)
   ```D:\Programming\matriks.txt```
 - Setiap proses yang berhasil, otomatis akan terbuat file baru bernama result.txt yang menyimpan hasil.
+- Lokasi result.txt berada satu folder dengan Main.class
 - File result.txt yang tidak dipindahkan, akan teroverwrite oleh result.txt yang baru ketika menjalankan program lagi dan berhasil
 
 ## Fitur
