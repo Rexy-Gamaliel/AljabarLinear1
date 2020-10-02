@@ -35,6 +35,9 @@ public class Matriks {
     }
 
     public void setElement(int row, int col, double value) {
+        if(row >= this.row || col >= this.col || row < 0 || col < 0){
+            System.out.println(row + col);
+        }
         M[row][col] = value;
     }
     
@@ -103,5 +106,15 @@ public class Matriks {
 
         MKali = new Matriks(a, c, hasilKali);
         return MKali;
+    }
+
+    public Matriks createDuplicate() {
+        Matriks newMatrix = Matriks.createMatriks(row, col);
+        for (int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++){
+                newMatrix.M[i][j] = M[i][j];
+            }
+        }
+        return newMatrix;
     }
 }
