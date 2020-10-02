@@ -3,6 +3,11 @@
 ## Deskripsi
   Program dalam bahasa java untuk menghitung berbagai permasalahan matriks. Fitur dapat dilihat pada section selanjutnya
   
+  Dibuat oleh :
+  - Rexy Gamaliel Rumahorbo 13519010
+  - Mohammad Afif Akromi 13519110
+  - Muhammad Jafar Gundari 13519197
+  
 ## Instalasi
   - ```git clone https://github.com/mhmmdjafarg/AljabarLinear1.git```
   - Buka folder hasil clone
