@@ -164,7 +164,7 @@ public class InputMatrix {
         for (j=1; j<MTest.getCol()-3; j++) {
             System.out.print("Masukkan nilai x_" + (j-1) + " : ");
             //System.out.print(j);
-            double xj = scanner.nextDouble();
+            xj = scanner.nextDouble();
             MTest.setElement(0, j, xj);
         }
         MTest.setElement(0, 0, 1);
