@@ -1,2 +1,2 @@
-Hasil taksiran P(x) adalah 269813.3741570618 
-Untuk X = 5.8 
+Hasil taksiran P(x) adalah 22804.24475902319 
+Untuk X = 5.8064516129 
