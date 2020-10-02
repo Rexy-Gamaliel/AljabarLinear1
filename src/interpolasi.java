@@ -77,31 +77,17 @@ public class interpolasi {
     public static double HasilTaksiranGaussJordan(Matriks matriksInterpolasi, double taksiranX) {
         // I.S : Matriks harus sudah bentuk matriks interpolasi
         // menghitung SPL interpolasi dengan gauss-jordan
+
+        double[] gauss = new double[matriksInterpolasi.getRow()];
+        gauss = SPLMatriks.eliminasiGaussJordan(matriksInterpolasi, 0);
+
+        int power = 0;
         double result = 0;
-
-        matriksInterpolasi = SPLMatriks.reduksiOBEJordan(matriksInterpolasi);
-
-        // salin hasil ke dalam matriks baru
-        double value;
-        Matriks MatriksSolusi = Matriks.createMatriks(matriksInterpolasi.getRow(), 1);
+        double X;
         for (int i = 0; i < matriksInterpolasi.getRow(); i++) {
-            value = matriksInterpolasi.getElement(i, matriksInterpolasi.getCol() - 1);
-            MatriksSolusi.setElement(i, 0, value);
-        }
-
-        if (SPLMatriks.isNotHaveSolution(matriksInterpolasi)) {
-            System.out.println("SPL tidak ada solusi");
-        } else if (SPLMatriks.isParametrik(matriksInterpolasi)) {
-            SPLMatriks.printParametrik(matriksInterpolasi);
-        } else {
-            int power = 0;
-            double X, koefisienSolusi;
-            for (int i = 0; i < MatriksSolusi.getRow(); i++) {
-                X = Math.pow(taksiranX, power);
-                koefisienSolusi = MatriksSolusi.getElement(i, 0);
-                result += (koefisienSolusi * X);
-                power++;
-            }
+            X = Math.pow(taksiranX, power);
+            result += (gauss[i] * X);
+            power++;
         }
         return result;
     }
