@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class regresi {
-    public static void ComputeRegresi (Matriks MAugmentedReg) {
+    public static void ComputeRegresi (Matriks MAugmentedReg, Matriks MTest) {
         /**Menentukan matriks regresi berdasarkan input
          * Mencetak matriks regresi
          * Menghitung koefisien regresi
@@ -37,9 +37,9 @@ public class regresi {
         WriteRegresiToFile(MReg, B);
 
         // Meng-input xj dari user
-        Matriks MTest = Matriks.createMatriks(1, MAugmentedReg.getCol());
-        InputMatrix Input = new InputMatrix();
-        Input.regresiTestMan(MTest);
+        //
+        //InputMatrix input = new InputMatrix();
+        //input.regresiTestMan(MTest);
 
         // Menghitung y dari MTest dan B
         double y = ResultRegresi(MTest, B);
@@ -98,6 +98,9 @@ public class regresi {
         int kolom = MReg.getCol();
         int i, j;
 
+        System.out.println();
+        System.out.println("Matriks Regresi: ");
+
         for (i=0; i<baris; i++) {
             // suku pertama tiap baris
             System.out.printf("(%.4f)b%d", MReg.getElement(i, 0), 0);
@@ -141,10 +144,12 @@ public class regresi {
         */
         int baris = B.getRow();
         int i;
+        System.out.println("Persamaan Regresi: ");
         System.out.printf("y = %.8f", B.getElement(0, 0));
         for (i=1; i<baris; i++) {
             System.out.printf(" + (%.8f).x%d", B.getElement(i, 0), i);
         }
+        System.out.println();
         System.out.println();
     }
 

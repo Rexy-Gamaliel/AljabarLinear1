@@ -52,7 +52,6 @@ public class Main {
         System.out.println("  4.Kaidah Cramer");
         System.out.println();
 
-
         // minta masukan pilihan
         System.out.print("  Pilih menu : ");
         int choose = in.nextInt();
@@ -383,7 +382,10 @@ public class Main {
             }
             // elemen MAugmentedReg terdefinisi
             // proses
-            regresi.ComputeRegresi(MAugmentedReg);
+            Matriks MTest = Matriks.createMatriks(1, MAugmentedReg.getCol());
+            //Matriks MTest;
+            MTest = input.regresiTest(MTest);
+            regresi.ComputeRegresi(MAugmentedReg, MTest);
 
         } else {
             System.out.println();
