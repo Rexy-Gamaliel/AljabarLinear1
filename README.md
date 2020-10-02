@@ -8,6 +8,7 @@
   - Buka folder hasil clone
   - Buka terminal dan masuk ke directory bin
   - Jalankan ```java Main```
+  - Pastikan device sudah terpasang Java Development Kit
 ## Cara menggunakan program
 **catatan**
 - Pada input gunakan angka saja untuk pilihan menu
