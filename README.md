@@ -4,7 +4,11 @@
   Program dalam bahasa java untuk menghitung berbagai permasalahan matriks. Fitur dapat dilihat pada section selanjutnya
   
 ## Instalasi
-  ```git clone https://github.com/mhmmdjafarg/AljabarLinear1.git```
+  - ```git clone https://github.com/mhmmdjafarg/AljabarLinear1.git```
+  - Buka folder hasil clone
+  - Buka terminal dan masuk ke directory bin
+  - Jalankan ```java Main```
+  - Pastikan device sudah terpasang Java Development Kit
 ## Cara menggunakan program
 **catatan**
 - Pada input gunakan angka saja untuk pilihan menu
@@ -12,6 +16,7 @@
 - Untuk input dari file, masukkan absolutepath dari file tersebut. Contoh : (file bernama matriks.txt)
   ```D:\Programming\matriks.txt```
 - Setiap proses yang berhasil, otomatis akan terbuat file baru bernama result.txt yang menyimpan hasil.
+- Lokasi result.txt berada satu folder dengan Main.class
 - File result.txt yang tidak dipindahkan, akan teroverwrite oleh result.txt yang baru ketika menjalankan program lagi dan berhasil
 
 ## Fitur

@@ -5,71 +5,69 @@ public class Main {
     public static String batas = "=====================================";
 
     public static int Menu() {
-        clearScreen();
         // Menampilkan pilihan menu dan mengembalikan nilai pilihannya
 
         Scanner in = new Scanner(System.in);
         System.out.println(batas);
-        System.out.println("MENU : ");
-        System.out.println("1. Sistem Persamaaan Linier");
-        System.out.println("2. Determinan");
-        System.out.println("3. Matriks balikan");
-        System.out.println("4. Interpolasi Polinom");
-        System.out.println("5. Regresi linier berganda");
-        System.out.println("6. Keluar");
+        System.out.println("  MENU : ");
+        System.out.println("  1. Sistem Persamaaan Linier");
+        System.out.println("  2. Determinan");
+        System.out.println("  3. Matriks balikan");
+        System.out.println("  4. Interpolasi Polinom");
+        System.out.println("  5. Regresi linier berganda");
+        System.out.println("  6. Keluar");
         System.out.println();
 
         // minta masukan pilihan
-        System.out.print("Pilih menu : ");
+        System.out.print("  Pilih menu : ");
         int choose = in.nextInt();
         while (choose < 1 || choose > 6) {
             System.out.println();
-            System.out.println("Menu salah, silakan ulangi");
+            System.out.println("  Menu salah, silakan ulangi");
             System.out.println(batas);
-            System.out.println("MENU : ");
-            System.out.println("1. Sistem Persamaaan Linier");
-            System.out.println("2. Determinan");
-            System.out.println("3. Matriks balikan");
-            System.out.println("4. Interpolasi Polinom");
-            System.out.println("5. Regresi linier berganda");
-            System.out.println("6. Keluar");
+            System.out.println("  MENU : ");
+            System.out.println("  1. Sistem Persamaaan Linier");
+            System.out.println("  2. Determinan");
+            System.out.println("  3. Matriks balikan");
+            System.out.println("  4. Interpolasi Polinom");
+            System.out.println("  5. Regresi linier berganda");
+            System.out.println("  6. Keluar");
 
             System.out.println(batas);
-            System.out.print("Pilih menu : ");
+            System.out.print("  Pilih menu : ");
             choose = in.nextInt();
         }
         return choose;
     }
 
     public static int SPLMenu() {
-        clearScreen();
         Scanner in = new Scanner(System.in);
         System.out.println(batas);
-        System.out.println("Sistem Persamaan Linear");
+        System.out.println("  Sistem Persamaan Linear");
         System.out.println(batas);
-        System.out.println("MENU : ");
-        System.out.println("1.Metode eliminasi Gauss");
-        System.out.println("2.Metode eliminasi Gauss-Jordan");
-        System.out.println("3.Metode matriks balikan");
-        System.out.println("4.Kaidah Cramer");
+        System.out.println("  MENU : ");
+        System.out.println("  1.Metode eliminasi Gauss");
+        System.out.println("  2.Metode eliminasi Gauss-Jordan");
+        System.out.println("  3.Metode matriks balikan");
+        System.out.println("  4.Kaidah Cramer");
         System.out.println();
 
 
         // minta masukan pilihan
-        System.out.print("Pilih menu : ");
+        System.out.print("  Pilih menu : ");
         int choose = in.nextInt();
         while (choose < 1 || choose > 4) {
             System.out.println();
-            System.out.println("Menu salah, silakan ulangi");
+            System.out.println("  Menu salah, silakan ulangi");
             System.out.println(batas);
-            System.out.println("MENU : ");
-            System.out.println("1.Metode eliminasi Gauss");
-            System.out.println("2.Metode eliminasi Gauss-Jordan");
-            System.out.println("3.Metode matriks balikan");
-            System.out.println("4.Kaidah Cramer");
+            System.out.println("  MENU : ");
+            System.out.println("  1.Metode eliminasi Gauss");
+            System.out.println("  2.Metode eliminasi Gauss-Jordan");
+            System.out.println("  3.Metode matriks balikan");
+            System.out.println("  4.Kaidah Cramer");
 
             System.out.println(batas);
-            System.out.print("Pilih menu : ");
+            System.out.print("  Pilih menu : ");
             choose = in.nextInt();
         }
         return choose;
@@ -78,18 +76,17 @@ public class Main {
     // Mengembalikan jenis input apakah file atau console
     public static int JenisInput() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1.File");
-        System.out.println("2.Console");
-        System.out.print("Pilih jenis input : ");
+        System.out.println("  1.File");
+        System.out.println("  2.Console");
+        System.out.print("  Pilih jenis input : ");
         int jenisinput = scanner.nextInt();
         while (jenisinput < 1 && jenisinput > 2) {
-            clearScreen();
             System.out.println(batas);
-            System.out.println("Masukkan salah");
+            System.out.println("  Masukkan salah");
             System.out.println(batas);
-            System.out.println("1.File");
-            System.out.println("2.Console");
-            System.out.print("Pilih jenis input :");
+            System.out.println("  1.File");
+            System.out.println("  2.Console");
+            System.out.print("  Pilih jenis input :");
         }
         return jenisinput;
     }
@@ -130,10 +127,8 @@ public class Main {
         int jenisinput;
         int menu = Menu();
 
-
         if (menu == 1) {
             int spl = SPLMenu();
-            clearScreen();
             System.out.println();
 
             jenisinput = JenisInput();
@@ -141,9 +136,9 @@ public class Main {
                 matriks = input.readFile();
             } else {
                 int n, m;
-                System.out.print("Masukkan banyaknya peubah n :");
+                System.out.print("  Masukkan banyaknya peubah n :");
                 n = scanner.nextInt();
-                System.out.print("Masukkan banyaknya persamaan m : ");
+                System.out.print("  Masukkan banyaknya persamaan m : ");
                 m = scanner.nextInt();
                 matriks = Matriks.createMatriks(m, n + 1);
                 input.SPLrun(matriks);
@@ -169,14 +164,14 @@ public class Main {
                     HasilSPL = SPLinvers.solusiSPLInverse(matriks);
                     SPLinvers.printSolusiSPLInvers(HasilSPL);
                 } else {
-                    System.out.println("Tidak dapat menggunakan metode ini");
+                    System.out.println("  Tidak dapat menggunakan metode ini");
                 }
             } else if (spl == 4) {
                 // metode cramer
                 if ((matriks.getRow() + 1) == matriks.getCol()) {
                     SPLcramer.Solusi(matriks);
                 } else {
-                    System.out.println("Tidak dapat menggunakan metode ini");
+                    System.out.println("  Tidak dapat menggunakan metode ini");
                 }
             }
 
@@ -184,20 +179,20 @@ public class Main {
         } else if (menu == 2) {
             // determinan
             System.out.println(batas);
-            System.out.println("Determinan");
+            System.out.println("  Determinan");
             System.out.println(batas);
 
-            System.out.println("1. Determinan Reduksi OBE ");
-            System.out.println("2. Determinan Kofaktor ");
-            System.out.print("Pilih menu: ");
+            System.out.println("  1. Determinan Reduksi OBE ");
+            System.out.println("  2. Determinan Kofaktor ");
+            System.out.print("  Pilih menu: ");
             int pil = scanner.nextInt();
 
             while (pil > 2 || pil < 1) {
-                System.out.println("Inputan Salah. Silahkan masukkam inputan lagi");
+                System.out.println("  Inputan Salah. Silahkan masukkam inputan lagi");
                 System.out.println();
-                System.out.println("1. Determinan Reduksi OBE ");
-                System.out.println("2. Determinan Kofaktor ");
-                System.out.print("Pilih menu: ");
+                System.out.println("  1. Determinan Reduksi OBE ");
+                System.out.println("  2. Determinan Kofaktor ");
+                System.out.print("  Pilih menu: ");
                 pil = scanner.nextInt();
             }
 
@@ -205,21 +200,21 @@ public class Main {
             if (jenisinput == 1) {
                 matriks = input.readFile();
             } else {
-                System.out.print("Masukkan ukuran matriks[n][n] n: ");
+                System.out.print("  Masukkan ukuran matriks[n][n] n: ");
                 int n = scanner.nextInt();
                 matriks = Matriks.createMatriks(n, n);
                 input.DetRun(matriks);
-                System.out.println("Matriks : ");
+                System.out.println("  Matriks : ");
                 System.out.println(matriks);
             }
 
             double determinan = 0;
             if (pil == 1) {
                 determinan = SPLMatriks.Determinan(matriks);
-                System.out.println("Nilai determinan = " + determinan);
+                System.out.println("  Nilai determinan = " + determinan);
             } else if (pil == 2) {
                 determinan = kofaktor.cofactor(matriks);
-                System.out.println("Nilai determinan = " + determinan);
+                System.out.println("  Nilai determinan = " + determinan);
             }
 
             // bagian save file
@@ -231,17 +226,17 @@ public class Main {
 
         } else if (menu == 3) { //invers
             System.out.println(batas);
-            System.out.println("Matriks Balikan");
+            System.out.println("  Matriks Balikan");
             System.out.println(batas);
             jenisinput = JenisInput();
             if (jenisinput == 1) {
                 matriks = input.readFile();
             } else {
-                System.out.print("Masukkan ukuran matriks[n][n] n: ");
+                System.out.print("  Masukkan ukuran matriks[n][n] n: ");
                 int n = scanner.nextInt();
                 matriks = Matriks.createMatriks(n, n);
                 input.DetRun(matriks);
-                System.out.println("Matriks : ");
+                System.out.println("  Matriks : ");
                 System.out.println(matriks);
             }
 
@@ -256,33 +251,37 @@ public class Main {
 
             double determinan = SPLMatriks.Determinan(tempMatriks);
             if (determinan == 0) {
-                System.out.println("Matriks tidak memiliki balikan");
+                System.out.println("  Matriks tidak memiliki balikan");
             } else {
-                System.out.println("1. Matriks metode OBE ");
-                System.out.println("2. Matriks metode adjoint ");
-                System.out.print("Pilih metode invers : ");
+                System.out.println("  1. Matriks metode OBE ");
+                System.out.println("  2. Matriks metode adjoint ");
+                System.out.print("  Pilih metode invers : ");
                 int pil = scanner.nextInt();
                 while (pil > 2 || pil < 1) {
-                    System.out.println("Inputan Salah. Silahkan masukkam inputan lagi");
+                    System.out.println("  Inputan Salah. Silahkan masukkam inputan lagi");
                     System.out.println();
-                    System.out.println("1. Matriks metode OBE ");
-                    System.out.println("2. Matriks metode adjoint ");
-                    System.out.print("Pilih menu: ");
+                    System.out.println("  1. Matriks metode OBE ");
+                    System.out.println("  2. Matriks metode adjoint ");
+                    System.out.print("  Pilih menu: ");
                     pil = scanner.nextInt();
                 }
 
+                int N = matriks.getRow();
+                Matriks matriksInv = Matriks.createMatriks(N, N);
 
                 if (pil == 1) {
                     // metode OBE
                     matriks = SPLinvers.inverseMatriks(matriks);
                 } else if (pil == 2) {
                     // metode cofactor
-                    matriks = kofaktorRex.ComputeInversKofaktor(matriks);
+                    InverseKofaktor.hitungInverse(matriks, matriksInv, N);
+                    matriks = matriksInv;
                 }
 
                 // print matriks balikan
-                System.out.println("Matriks balikan : ");
-                System.out.println(matriks);
+                System.out.println("  Matriks balikan : ");
+//                System.out.println(matriks);
+                SPLMatriks.printMatrix2d(matriks);
 
                 // save file ke result.txt
                 WriteFile.DelFileExist();
@@ -299,13 +298,13 @@ public class Main {
         } else if (menu == 4) {
             // interpolasi
             System.out.println(batas);
-            System.out.println("Interpolasi");
+            System.out.println("  Interpolasi");
             System.out.println(batas);
             jenisinput = JenisInput();
             if (jenisinput == 1) {
                 matriks = input.readFile();
             } else {
-                System.out.print("Masukkan nilai derajat interpolasi n : ");
+                System.out.print("  Masukkan nilai derajat interpolasi n : ");
                 int n = scanner.nextInt();
                 matriks = Matriks.createMatriks(n + 1, 2);
                 input.interpolasiRun(matriks);
@@ -313,7 +312,7 @@ public class Main {
 
             // ubah menjadi matriks augmented interpolasi
             matriks = interpolasi.MakeInterpolasi(matriks);
-            System.out.print("Masukkan nilai yang akan ditaksir X : ");
+            System.out.print("  Masukkan nilai yang akan ditaksir X : ");
             double X = scanner.nextDouble();
 
             // cek determinan
@@ -331,7 +330,7 @@ public class Main {
             int spl = SPLMenu();
             double result = 0;
             if (determinan == 0) {
-                System.out.println("Tidak dapat menaksir X, dikarenakan solusi tidak unik");
+                System.out.println("  Tidak dapat menaksir X, dikarenakan solusi tidak unik");
             } else {
                 if (spl == 1) {
                     // Eliminasi Gauss
@@ -347,7 +346,7 @@ public class Main {
                     result = interpolasi.HasilTaksiran(matriks, X);
                 }
 
-                System.out.print("Hasil taksiran P(x), untuk x = " + X + " adalah ");
+                System.out.print("  Hasil taksiran P(x), untuk x = " + X + " adalah ");
                 System.out.format("%.4f", result);
                 System.out.println();
 
@@ -365,7 +364,7 @@ public class Main {
 
         } else if (menu == 5) { // regresi linear
             System.out.println(batas);
-            System.out.println("Regresi Linear");
+            System.out.println("  Regresi Linear");
             System.out.println(batas);
 
             jenisinput = JenisInput();
@@ -374,9 +373,9 @@ public class Main {
             if (jenisinput == 1) {      // input file
                 MAugmentedReg = input.readFile();
             } else {                    // input manual
-                System.out.println("Masukkan nilai k (banyaknya variabel independen x), k = ");
+                System.out.println("  Masukkan nilai k (banyaknya variabel independen x), k = ");
                 int k = scanner.nextInt();
-                System.out.println("Masukkan nilai n (banyaknya persamaan), n = ");
+                System.out.println("  Masukkan nilai n (banyaknya persamaan), n = ");
                 int n = scanner.nextInt();
                 /* Membuat matriks Augmented */
                 MAugmentedReg = Matriks.createMatriks(n, k + 1);
@@ -388,7 +387,7 @@ public class Main {
 
         } else {
             System.out.println();
-            System.out.println("Terima kasih telah menggunakan progam kami");
+            System.out.println("  Terima kasih telah menggunakan progam kami");
             System.out.println("============ Semoga Bermanfaat ===========");
         }
     }
