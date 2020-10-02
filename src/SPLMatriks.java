@@ -61,7 +61,7 @@ public class SPLMatriks {
         int len2D = matriks.getCol();
         int geser = 0;
 
-        for (int i = 0; i < len1D-1; i++) {
+        for (int i = 0; i < len1D; i++) {
             double pivot = -1;
             double factor = 0;
 
