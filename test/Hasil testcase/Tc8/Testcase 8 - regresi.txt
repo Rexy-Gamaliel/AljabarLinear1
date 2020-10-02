@@ -1,0 +1,13 @@
+Dilakukan input variabel independen x1, x2, dan x3 dan variabel dependen y seperti pada file testcase
+
+Didapatkan SPL untuk Normal Estimation Equation for Multiple Linear Regression:
+20b0	 + 863.1b1	+ 1530.4b2	+ 587.84b3	= 19.42
+863.1b0	 + 54876.89b1	+ 67000.09b2	+ 25283.395b3	= 779.477
+1530.4b0 + 67000.09b1	+ 117912.32b2	+ 44976.867b3	= 1483.437
+587.84b0 + 25283.395b1	+ 44976.867b2	+ 17278.5086b3	= 571.1219
+
+Dari SPL di atas, didapatkan bahwa hubungan antara variabel independen x1, x2, dan x3 dengan variabel dependen y dapat ditaksir dengan persamaan:
+y = -3.50777814 + (-0.00262499)x1 + (-0.00079894)x2 + (0.15415503)x3
+
+Dilakukan input variabel independen x1, x2, dan x3 untuk menentukan variabel dependen y.
+Ditetapkan x1 = 50, x2 = 76, dan x3 = 29.30, didapatkan y = 0.93843422.
