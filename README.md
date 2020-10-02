@@ -4,7 +4,10 @@
   Program dalam bahasa java untuk menghitung berbagai permasalahan matriks. Fitur dapat dilihat pada section selanjutnya
   
 ## Instalasi
-  ```git clone https://github.com/mhmmdjafarg/AljabarLinear1.git```
+  - ```git clone https://github.com/mhmmdjafarg/AljabarLinear1.git```
+  - Buka folder hasil clone
+  - Buka terminal dan masuk ke directory bin
+  - Jalankan ```java Main```
 ## Cara menggunakan program
 **catatan**
 - Pada input gunakan angka saja untuk pilihan menu
