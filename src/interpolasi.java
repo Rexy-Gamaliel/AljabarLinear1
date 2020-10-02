@@ -57,19 +57,37 @@ public class interpolasi {
         // I.S : Matriks harus sudah bentuk matriks interpolasi
         // menggunakan metode inverse
         // matriks penampung solusi SPL
-        Matriks hasil = Matriks.createMatriks(matriksInterpolasi.getRow(), 1);
-        hasil = SPLinvers.solusiSPLInverse(matriksInterpolasi);
+        int n = matriksInterpolasi.getRow();
+        int m = matriksInterpolasi.getCol();
+
+        Matriks B = new Matriks(n, 1, new double[n][1]);
+        Matriks A = new Matriks(n, m, new double[n][m]);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                A.setElement(i, j, matriksInterpolasi.getElement(i, j));
+            }
+        }
+        SPLinvers.SplitMatriks(A, B);
+
+        int N = A.getRow();
+        Matriks matriksInv = Matriks.createMatriks(N, N);
+        InverseKofaktor.hitungInverse(A, matriksInv, N);
+
+        Matriks MatriksX = new Matriks(A.getRow(), 1, new double[A.getRow()][1]);
+        MatriksX = Matriks.KaliMatriks(matriksInv, B);
+
         double result = 0;
         int power = 0;
         double X;
         double koefisienSolusi;
         int i;
-        for (i = 0; i < hasil.getRow(); i++) {
+        for (i = 0; i < MatriksX.getRow(); i++) {
             X = Math.pow(taksiranX, power);
-            koefisienSolusi = hasil.getElement(i, 0);
+            koefisienSolusi = MatriksX.getElement(i, 0);
             result += (koefisienSolusi * X);
             power++;
         }
+
         return result;
     }
 
@@ -80,7 +98,6 @@ public class interpolasi {
 
         double[] gauss = new double[matriksInterpolasi.getRow()];
         gauss = SPLMatriks.eliminasiGaussJordan(matriksInterpolasi, 0);
-
         int power = 0;
         double result = 0;
         double X;
